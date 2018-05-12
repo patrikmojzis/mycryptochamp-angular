@@ -1,0 +1,237 @@
+
+<app-metamask *ngIf="(this.game.MetaMaskError == 1 || this.game.MetaMaskError == 2 || this.game.MetaMaskError == 3 || this.game.MetaMaskError == 4);else content"></app-metamask>
+<ng-template #content>
+   <app-header></app-header>
+   <div *ngIf="(!loading); else loadingTemplate">
+      <div class="container-fluid {{this.game.getBackgroundGradientColor(champ.id)}} text-center pt-5 pb-4">
+         <div class="row ">
+            <div class="col-10 offset-1 col-sm-6 offset-sm-3 col-md-4 offset-md-4 col-lg-2 offset-lg-5 ">
+               <div class="p-2 mb-4" *ngIf="champ.forSale">
+                  <span class="price-tag color-dark">
+                     <fa name="tag" class="text-success"></fa>
+                     {{champ.price| number:'1.1-4'}} Ξ
+                  </span>
+               </div>
+               <img src="../../assets/img/champs/{{this.game.getChampImg(champ.id)}}" class="img-fluid" alt="Champ">
+               <div class="row mt-5 stats">
+                  <div class="col-4 px-1"><img src="../../assets/img/icons/sword-small.png" alt="Attack power" title="Attack power" height="18" width="18" class="mb-1"><br><span>{{champ.attackPower}}</span></div>
+                  <div class="col-4 px-1"><img src="../../assets/img/icons/shield-small.png" alt="Defence power" title="Defence power" height="18" width="18" class="mb-1"><br><span>{{champ.defencePower}}</span></div>
+                  <div class="col-4 px-1"><img src="../../assets/img/icons/plus-small.png" alt="Regeneration" title="Regeneration" height="18" width="18" class="mb-1"><br><span>{{this.game.timeConvert(champ.cooldownTime)}}</span></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container mt-5">
+         <div class="row">
+            <div class="col-12 col-sm-6 col-md-8">
+               <h2 class="h2 color-dark ml-1">{{champ.name}}</h2>
+               <p class="text-secondary mt-3 lead ml-1">
+                  #{{champ.position}} <strong>·</strong> 
+                  W {{champ.winCount}} <strong>·</strong> 
+                  L {{champ.lossCount}} <strong>·</strong> 
+                  <a routerLink="{{ (myAddress == champ.owner) ? '/portfolio' : '/profile/' + champ.owner }}" class="text-secondary">
+                     <fa name="user"></fa>
+                     {{(champ.ownerName ? champ.ownerName : champ.owner)}}
+                  </a>
+               </p>
+               <h5 class="h5 mt-5 text-secondary ml-1">Actions</h5>
+               <div class="mt-3">
+                  <button *ngIf="isOwner && champ.withdrawalReady < this.blockTimestamp && champ.position <= this.game.numPlayersAbleWithdrawal" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="getReward(champ.id)" placement="bottom" [ngbTooltip]="'Ξ ' + (champReward | number:'1.1-8')">
+                  <fa name="star" class="text-warning"></fa>
+                  Get Reward</button>
+                  <button *ngIf="isOwner && !champ.forSale" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="openModal(sellChampModal)">
+                  <fa name="tag" class="text-success"></fa>
+                  Sell</button>
+                  <button *ngIf="isOwner && champ.forSale" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="cancelSale(champ.id)">
+                  <fa name="times" class="text-danger"></fa>
+                  Cancel Sale</button>
+                  <button *ngIf="isOwner" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="openModal(sendAsGiftModal)">
+                  <fa name="gift" class="text-primary"></fa>
+                  Gift</button>
+                  <button *ngIf="!isOwner" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="openModal(attackChampModal)">
+                  <fa name="bolt" class="text-warning"></fa>
+                  Attack</button>
+                  <button *ngIf="!isOwner && champ.forSale" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="buyChamp(champ.id,champ.price)">
+                  <fa name="tag" class="text-success"></fa>
+                  Buy</button>
+                  <button *ngIf="isOwner" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="openModal(renameChampModal)">
+                  <fa name="edit" class="text-info"></fa>
+                  Rename</button>
+               </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4">
+               <div class="row">
+                  <div class="col-4 col-sm-4" *ngIf="!itemSword.id">
+                     <div class="item-box my-2 bg-grey">
+                        <img src="../../assets/img/items/empty/sword.png" class="img-fluid p-3">
+                     </div>
+                  </div>
+                  <div class="col-4 col-sm-4" *ngIf="itemSword.id">
+                     <a routerLink="/item/{{itemSword.id}}">
+                        <div class="item-box my-2 animated {{this.game.getBackgroundColor(itemSword.id)}}" 
+                           placement="top" 
+                           ngbTooltip="AP {{itemSword.attackPower}} · DP {{itemSword.defencePower}} · CR {{itemSword.cooldownReduction / 60 | number:'1.0-0' }}m">
+                           <img src="../../assets/img/items/{{this.game.getItemImg(itemSword.id, itemSword.type, itemSword.rank)}}" class="img-fluid p-3">
+                        </div>
+                     </a>
+                  </div>
+                  <div class="col-4 col-sm-4" *ngIf="!itemShield.id">
+                     <div class="item-box my-2 bg-grey">
+                        <img src="../../assets/img/items/empty/shield.png" class="img-fluid p-3">
+                     </div>
+                  </div>
+                  <div class="col-4 col-sm-4" *ngIf="itemShield.id">
+                     <a routerLink="/item/{{itemShield.id}}">
+                        <div class="item-box my-2 animated {{this.game.getBackgroundColor(itemShield.id)}}" 
+                           placement="top" 
+                           ngbTooltip="AP {{itemShield.attackPower}} · DP {{itemShield.defencePower}} · CR {{itemShield.cooldownReduction / 60 | number:'1.0-0' }}m">
+                           <img src="../../assets/img/items/{{this.game.getItemImg(itemShield.id, itemShield.type, itemShield.rank)}}" class="img-fluid p-3">
+                        </div>
+                     </a>
+                  </div>
+                  <div class="col-4 col-sm-4" *ngIf="!itemHelmet.id">
+                     <div class="item-box my-2 bg-grey">
+                        <img src="../../assets/img/items/empty/helmet.png" class="img-fluid p-3">
+                     </div>
+                  </div>
+                  <div class="col-4 col-sm-4" *ngIf="itemHelmet.id">
+                     <a routerLink="/item/{{itemHelmet.id}}">
+                        <div class="item-box my-2 animated {{this.game.getBackgroundColor(itemHelmet.id)}}" 
+                           placement="top" 
+                           ngbTooltip="AP {{itemHelmet.attackPower}} · DP {{itemHelmet.defencePower}} · CR {{itemHelmet.cooldownReduction / 60 | number:'1.0-0' }}m">
+                           <img src="../../assets/img/items/{{this.game.getItemImg(itemHelmet.id, itemHelmet.type, itemHelmet.rank)}}" class="img-fluid p-3">
+                        </div>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <ng-template #sellChampModal let-c="close" let-d="dismiss">
+         <div class="modal-header">
+            <h4 class="modal-title">Sell {{champ.name}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <form><div class="modal-body">
+            <div class="row">
+               <div class="col-10">
+                  <div class="form-group vertical-centering">
+                     <label for="price">Price</label>
+                     <div class="input-group">
+                        <input type="number" min="0" step="0.001" class="form-control" name="price" id="price" placeholder="Enter price in Ether" [(ngModel)]="sellingPrice">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text">Ether</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-2 text-center">
+                  <img src="../../assets/img/modals/bag.png" class="img-fluid shake-anim">
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="submit" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click');setForSale(champ.id,sellingPrice,sellChampModal)">
+               <fa name="tag" class="text-success"></fa>
+               Sell for Ξ {{((sellingPrice | number:'1.1-4') != null) ? (sellingPrice | number:'1.1-4') : (0 | number:'1.1-4')}}
+            </button>
+            <button type="button" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click')">Close</button>
+         </div></form>
+      </ng-template>
+      <ng-template #renameChampModal let-c="close" let-d="dismiss">
+         <div class="modal-header">
+            <h4 class="modal-title">Rename {{champ.name}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <form><div class="modal-body">
+            <div class="form-group">
+               <label for="name">Name</label>
+               <div class="input-group">
+                  <input type="text" maxlength="12" class="form-control" name="name" id="name"  placeholder="Enter name" [(ngModel)]="newName">
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="submit" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click');renameChamp()">
+               <fa name="edit" class="text-info"></fa>
+               Rename
+            </button>
+            <button type="button" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click')">Close</button>
+         </div></form>
+      </ng-template>
+      <ng-template #sendAsGiftModal let-c="close" let-d="dismiss">
+         <div class="modal-header">
+            <h4 class="modal-title">Gift {{champ.name}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <form><div class="modal-body">
+            <div class="row text-secondary">
+               <div class="col-12">
+                  <p>Champ will be gifted with all dressed items.</p>
+                  <hr>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-10">
+                  <div class="form-group vertical-centering">
+                     <label for="giftRecieverAddress py-2">Gift to address</label>
+                     <div class="input-group">
+                        <input type="text" class="form-control" name="giftRecieverAddress" id="giftRecieverAddress" placeholder="Enter valid address starting with 0x" [(ngModel)]="giftRecieverAddress">
+                     </div>
+                  </div>
+               </div>
+               <div class="col-2 text-center vertical-centering">
+                  <img src="../../assets/img/modals/gift.png" class="img-fluid shake-anim">
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="submit" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click');sendAsGift(giftRecieverAddress,champ.id)">
+               <fa name="gift" class="text-primary"></fa>
+               Send
+            </button>
+            <button type="button" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click')">Close</button>
+         </div></form>
+      </ng-template>
+      <ng-template #attackChampModal let-c="close" let-d="dismiss">
+         <div class="modal-header">
+            <h4 class="modal-title">Attack {{champ.name}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <div class="row text-secondary">
+               <div class="col-12">
+                  <p>To win a fight you need to have higher attack power than target’s defence power.</p>
+                  <p>If the bolt next to your champ's name is green then you will win.</p>
+                  <p>Few ability points are moved from champ who was defeated to winner.</p>
+                  <hr>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-12">
+                  <p class="text-center"><strong>Select champ to attack with</strong></p>
+                  <button *ngFor="let myChamp of myChamps" [hidden]="!(myChamp.readyTime < this.blockTimestamp)" type="button" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="c('Close click');attackChamp(myChamp.id,champ.id)"><fa name="bolt" class="{{ (myChamp.attackPower > champ.defencePower) ? 'text-success' : 'text-danger' }}"></fa> {{ myChamp.name }}</button>
+                  <p *ngFor="let myChamp of myChamps" [hidden]="!(myChamp.readyTime > this.blockTimestamp)" class="text-secondary text-right">{{ myChamp.name }} ready in less than {{this.game.timeConvertInAttack(myChamp.readyTime - this.blockTimestamp)}}</p>
+                  <p class="text-secondary ml-1" *ngIf="myChamps.length == 0">No champs owned</p>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click')">Close</button>
+         </div>
+      </ng-template>
+   </div>
+   <ng-template #loadingTemplate>
+      <div class="loading"></div>
+   </ng-template>
+   <app-footer></app-footer>
+</ng-template>
+

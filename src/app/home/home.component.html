@@ -1,0 +1,84 @@
+<app-header *ngIf="this.game.MetaMaskError == 0"></app-header>
+<app-nw3header *ngIf="this.game.MetaMaskError != 0"></app-nw3header>
+<div class="container-fluid bg-white py-5">
+   <div class="container py-5">
+      <div class="row">
+         <div class="col-12 col-sm-6 order-2 order-sm-1">
+            <div class="row">
+               <div class="col-12">
+                  <h1 class="h1 color-dark fontsize-xl">MyCryptoChamp</h1>
+                  <p class="lead text-secondary fontsize-lg mt-3">Your cute crypto army</p>
+               </div>
+            </div>
+            <div class="row pb-4 mt-3">
+               <div class="col-12">
+                  <button class="c-btn c-btn-xl c-btn-primary" routerLink="/portfolio">Play now!</button>
+               </div>
+            </div>
+         </div>
+         <div class="col-12 col-sm-6 vertical-centering order-1 order-sm-2">
+            <div class="row my-3">
+               <div class="col">
+                  <img src="../assets/img/mycryptochamp.png" class="img-fluid">
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="container-fluid bg-pattern bg-grey py-5">
+   <div class="container my-5 bg-white p-5 border-radius text-darkgrey box-shadow">
+      <div class="row">
+         <div class="col-12 col-sm-10 offset-sm-1 text-center">
+            <img src="../assets/img/logo.png" width="120" height="120" class="img-fluid" alt="MyCryptoChamp logo">
+            <h2 class="h2 mt-4 color-dark text-uppercase">About</h2>
+            <p class="lead mt-4">MyCryptoChamp is a multi-player online game, based on Ethereum blockchain technology. Your champs and items are just your property as in any other cryptocurrency asset. You may buy, sell and gift them as you want. Champs can challenge each other and the best 800 champs are rewarded by real Ether. The introduction of blockchain makes the process secure thanks to the technology’s ability to credibly trace ownerships and control actions in the game.
+            <p>
+            <p class="lead mt-4">Need more informations? <a routerLink="/faq" title="Visit FAQ" class="link-secondary">See FAQ</a></p>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="container mt-5">
+   <div class="row">
+      <div class="col-6 offset-sm-1 col-sm-5 p-4 mt-3 text-center">
+         <div class="text-darkgrey p-4"><img src="../assets/img/icons/getchamp-icon.png" width="120" height="120" class="img-fluid" alt="MyCryptoChamp logo"></div>
+         <h3 class="h3 color-dark">
+            Get a champ
+         </h3>
+         <p class="lead mt-3 text-secondary">Your first champs is waiting for you. Collect, trade and conquer.</p>
+      </div>
+      <div class="col-6 col-sm-5 p-4 mt-3 text-center">
+         <div class="text-darkgrey p-4"><img src="../assets/img/icons/upgrade-icon.png" width="120" height="120" class="img-fluid" alt="MyCryptoChamp logo"></div>
+         <h3 class="h3 color-dark">
+            Become stronger
+         </h3>
+         <p class="lead mt-3 text-secondary">Either by fighting or getting powerful items.</p>
+      </div>
+      <div class="col-6 offset-sm-1 col-sm-5 p-4 mb-3 text-center">
+         <div class="text-darkgrey p-4"><img src="../assets/img/icons/fight-icon.png" width="120" height="120" class="img-fluid" alt="MyCryptoChamp logo"></div>
+         <h3 class="h3 color-dark">
+            Challenge players
+         </h3>
+         <p class="lead mt-3 text-secondary">Defeat players and take their place in leaderboard.</p>
+      </div>
+      <div class="col-6 col-sm-5 p-4 mb-3 text-center">
+         <div class="text-darkgrey p-4"><img src="../assets/img/icons/eth-icon.png" width="120" height="120" class="img-fluid" alt="MyCryptoChamp logo"></div>
+         <h3 class="h3 color-dark">
+            Earn Ether
+         </h3>
+         <p class="lead mt-3 text-secondary">The best 800 champs get daily reward. The better you are, the more you get.</p>
+      </div>
+   </div>
+</div>
+<div class="container my-5">
+   <div class="row">
+      <div class="col-12 text-center fontsize-md">
+         <p class="text-secondary">Not a collectible game. Only collecting champs would not be fun<br> if you could not fight with them and upgrade them.</p>
+         <p class="color-dark">Become hero in the game a get daily reward!</p>
+         <button class="c-btn c-btn-xl c-btn-primary mt-4" routerLink="/portfolio">Play now!</button>
+      </div>
+   </div>
+</div>
+<app-footer *ngIf="this.game.MetaMaskError == 0"></app-footer>
+<app-nw3footer *ngIf="this.game.MetaMaskError != 0"></app-nw3footer>

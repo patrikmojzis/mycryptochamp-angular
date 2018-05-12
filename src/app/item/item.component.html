@@ -1,0 +1,132 @@
+<app-metamask *ngIf="(this.game.MetaMaskError == 1 || this.game.MetaMaskError == 2 || this.game.MetaMaskError == 3 || this.game.MetaMaskError == 4);else content"></app-metamask>
+<ng-template #content>
+   <app-header></app-header>
+   <div *ngIf="(!loading); else loadingTemplate">
+      <div class="container-fluid {{this.game.getBackgroundGradientColor(item.id)}} text-center pt-5 pb-4">
+         <div class="row ">
+            <div class="col-10 offset-1 col-sm-6 offset-sm-3 col-md-4 offset-md-4 col-lg-2 offset-lg-5 ">
+               <div class="p-2 mb-4" *ngIf="item.forSale">
+                  <span class="price-tag color-dark">
+                     <fa name="tag" class="text-success"></fa>
+                     {{item.price| number:'1.1-4'}} Ξ
+                  </span>
+               </div>
+               <img src="../../assets/img/items/{{this.game.getItemImg(item.id, item.type, item.rank)}}" class="img-fluid mt-1" alt="{{item.rank + ' ' + item.type}}">
+               <div class="row mt-5 stats">
+                  <div class="col px-1"><img src="../../assets/img/icons/sword-small.png" alt="Attack power" title="Attack power" height="18" width="18" class="mb-1"><br><span>{{item.attackPower}}</span></div>
+                  <div class="col px-1"><img src="../../assets/img/icons/shield-small.png" alt="Defence power" title="Defence power" height="18" width="18" class="mb-1"><br><span>{{item.defencePower}}</span></div>
+                  <div class="col px-1"><img src="../../assets/img/icons/plus-small.png" alt="Cooldown reduction" title="Cooldown reduction" height="18" width="18" class="mb-1"><br><span>{{item.cooldownReduction / 60 | number:'1.0-0' }}m</span></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container mt-5">
+         <div class="row">
+            <div class="col-12 col-sm-6 col-md-8">
+               <h3 class="h3 color-dark ml-1">
+                  <span class="text-capitalize">{{item.rank}}</span> 
+                  <span class="text-capitalize">{{item.type}}</span>
+               </h3>
+               <p class="text-secondary mt-3 lead ml-1">
+                  ID {{item.id}} <strong>·</strong> 
+                  <a routerLink="{{ (myAddress == item.owner) ? '/portfolio' : '/profile/' + item.owner }}" class="text-secondary">
+                     <fa name="user"></fa>
+                     {{(item.ownerName ? item.ownerName : item.owner)}}
+                  </a>
+               </p>
+               <h5 class="h5 mt-5 text-secondary ml-1" *ngIf="isOwner || item.forSale">Actions</h5>
+               <div class="mt-3">
+                  <button *ngIf="isOwner && item.forSale" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="cancelSale(item.id)">
+                  <fa name="times" class="text-danger"></fa>
+                  Cancel Sale</button>
+                  <button *ngIf="isOwner && !item.forSale" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="openModal(sellItemModal)">
+                  <fa name="tag" class="text-success"></fa>
+                  Sell</button>
+                  <button *ngIf="isOwner" class="c-btn c-btn-sm c-btn-grey-outline m-1"  (click)="openModal(sendAsGiftModal)">
+                  <fa name="gift" class="text-primary"></fa>
+                  Gift</button>
+                  <button *ngIf="!isOwner && item.forSale" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="buyItem(item.id,item.price)">
+                  <fa name="tag" class="text-success"></fa>
+                  Buy</button>
+               </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 text-sm-left text-md-right" *ngIf="isOwner">
+               <h5 class="h5 text-secondary text-uppercase mb-4 mr-1">
+                  <fa name="flag"></fa>
+                  Put on champ
+               </h5>
+               <button *ngFor="let myChamp of myChamps | orderBy: 'id'" type="button" class="c-btn c-btn-sm m-1 {{(item.onChamp == true && item.onChampID == myChamp.id) ? 'c-btn-tertiary-outline' : 'c-btn-grey-outline'}}" (click)="putOn(item.id,myChamp.id,item.onChampID,item.type,item.onChamp)">{{ myChamp.name }}</button>
+               <p class="text-secondary" *ngIf="myChamps.length == 0">No champs owned</p>
+            </div>
+         </div>
+      </div>
+      <ng-template #sellItemModal let-c="close" let-d="dismiss">
+         <div class="modal-header">
+            <h4 class="modal-title">Sell {{item.rank + ' ' + item.type + ' ' + item.id}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <form><div class="modal-body">
+            <div class="row">
+               <div class="col-10">
+                  <div class="form-group vertical-centering">
+                     <label for="price">Price</label>
+                     <div class="input-group">
+                        <input type="number" min="0" step="0.001" class="form-control" name="price" id="price" placeholder="Enter price in Ether" [(ngModel)]="sellingPrice">
+                        <div class="input-group-prepend">
+                           <div class="input-group-text">Ether</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-2 text-center">
+                  <img src="../../assets/img/modals/bag.png" class="img-fluid shake-anim">
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="submit" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click');setForSale(item.id,sellingPrice,sellChampModal)">
+               <fa name="tag" class="text-success"></fa>
+               Sell for Ξ {{((sellingPrice | number:'1.1-4') != null) ? (sellingPrice | number:'1.1-4') : (0 | number:'1.1-4')}}
+            </button>
+            <button type="button" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click')">Close</button>
+         </div></form>
+      </ng-template>
+      <ng-template #sendAsGiftModal let-c="close" let-d="dismiss">
+         <div class="modal-header">
+            <h4 class="modal-title">Gift {{item.rank + ' ' + item.type + ' ' + item.id}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <form><div class="modal-body">
+            <div class="row">
+               <div class="col-10">
+                  <div class="form-group vertical-centering">
+                     <label for="giftRecieverAddress py-2">Gift to address</label>
+                     <div class="input-group">
+                        <input type="text" class="form-control" name="giftRecieverAddress" id="giftRecieverAddress" placeholder="Enter valid address starting with 0x" [(ngModel)]="giftRecieverAddress">
+                     </div>
+                  </div>
+               </div>
+               <div class="col-2 text-center vertical-centering">
+                  <img src="../../assets/img/modals/gift.png" class="img-fluid shake-anim">
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="submit" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click');sendAsGift(giftRecieverAddress,item.id)">
+               <fa name="gift" class="text-primary"></fa>
+               Send
+            </button>
+            <button type="button" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click')">Close</button>
+         </div></form>
+      </ng-template>
+   </div>
+   <ng-template #loadingTemplate>
+      <div class="loading"></div>
+   </ng-template>
+   <app-footer></app-footer>
+</ng-template>
+

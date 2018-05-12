@@ -1,0 +1,42 @@
+<app-metamask *ngIf="this.game.MetaMaskError;else content"></app-metamask>
+<ng-template #content>
+   <app-header></app-header>
+   <div class="container mt-5">
+      <div class="row py-1">
+         <div class="col col-md-6 offset-md-3">
+            <h2 class="h2 color-primary">Invite a Friend</h2>
+         </div>
+      </div>
+      <div class="row py-1">
+         <div class="col col-md-6 offset-md-3">
+            <p class="lead">And earn <strong>25%</strong> commissions off of every purchase.</p>
+         </div>
+      </div>
+      <div class="row py-1">
+         <div class="col col-md-6 offset-md-3">
+            <div class="form-group">
+               <label for="affiliateLink" class="col-form-label">Your link:</label>
+               <input type="text" class="form-control" placeholder="{{link + this.game._account}}" id="affiliateLink" [(ngModel)]="link + this.game._account" readonly>
+            </div>
+         </div>
+      </div>
+      <div class="row py-1">
+         <div class="col col-md-6 offset-md-3">
+            <hr>
+            <ul>
+               <li>
+                  <p>Commissions appear immediately in your cashback.</p>
+               </li>
+               <li>
+                  <p>No minimum limits. You are able to withdraw whenever you want.</p>
+               </li>
+               <li>
+                  <p>Affiliate program works on 'last cookie wins' principle.</p>
+               </li>
+            </ul>
+         </div>
+      </div>
+   </div>
+   <app-footer></app-footer>
+</ng-template>
+

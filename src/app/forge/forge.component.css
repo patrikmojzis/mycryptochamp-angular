@@ -1,0 +1,16 @@
+.champ-stats{
+	font-size: 90%;
+}
+
+.header-border {
+	border-top: 2px solid #f3f1ee;
+	border-bottom: 2px solid #f3f1ee;
+}
+
+.item-box {
+	border-radius: 8px;
+}
+
+.item-box:hover {
+  animation-name: bounce;
+}

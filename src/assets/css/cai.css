@@ -1,0 +1,41 @@
+.cai-card{
+  width: 100%;
+  padding: 2.5rem !important;
+  font-size: .94rem;
+}
+
+@media (min-width: 576px) {
+  .cai-card{
+    width: 50%;
+    padding: 1.5rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .cai-card{
+    width: 33.333333333%;
+    padding: 2rem !important;
+  }
+}
+
+@media (min-width: 922px) {
+  .cai-card{
+    width: 25%;
+    padding: 2rem !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cai-card{
+    width: 20%;
+    padding: 2.5rem !important;
+  }
+}
+
+.cai-stats{
+  background: white;
+  border-radius: 8px;
+  padding: 8px;
+  border: 1px solid;
+  border-color: #ccc;
+}

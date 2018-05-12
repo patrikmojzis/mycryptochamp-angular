@@ -1,0 +1,36 @@
+.footer-col-1 {
+	text-align: left;
+}
+
+.footer-col-2 {
+	text-align: center;
+}
+
+.footer-col-3 {
+	text-align: right;
+}
+
+.footer-col-4 {
+	text-align: center;
+	padding-top: 20px;
+}
+
+
+/* Smaller devices (mobiles, 576px and up) */
+
+@media (min-width: 576px) {
+	.footer-col-1 {
+		text-align: left;
+	}
+	.footer-col-2 {
+		text-align: left;
+	}
+	.footer-col-3 {
+		text-align: left;
+	}
+	.footer-col-4 {
+		text-align: right;
+		padding-top: 0px;
+	}
+}
+

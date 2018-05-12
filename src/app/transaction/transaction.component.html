@@ -1,0 +1,123 @@
+
+
+<app-metamask *ngIf="(this.game.MetaMaskError == 1 || this.game.MetaMaskError == 2 || this.game.MetaMaskError == 3 || this.game.MetaMaskError == 4);else content"></app-metamask>
+<ng-template #content>
+   <app-header></app-header>
+   <div class="container mt-5">
+      <div class="row" *ngIf="this.game.web3message.error">
+         <div class="col col-md-6 offset-md-3">
+            <h3 classs="h3">Error occurred during sending transaction</h3>
+            <p class="lead mt-3">Ignore this message if you just rejected transaction in MetaMask.</p>
+            <div class="my-4">
+               <hr>
+               <button type="button" class="c-btn c-btn-sm c-btn-dark-outline" (click)="errorIsCollapsed = !errorIsCollapsed"
+               [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+               Show error
+               </button>
+            </div>
+            <p [ngbCollapse]="errorIsCollapsed"><code>{{this.game.web3message.error}}</code></p>
+         </div>
+      </div>
+      <div class="row" *ngIf="this.game.web3message.result">
+         <div class="col col-md-6 offset-md-3">
+            <div class="row">
+               <div class="col-2 vertical-centering">
+                  <img src="../assets/img/transaction-sent.jpg" class="img-fluid" alt="Transaction sent">
+               </div>
+               <div class="col-10">
+                  <h3 classs="h3 color-primary">Transaction has been successfully sent</h3>
+                  <code><small><a href="https://etherscan.io/tx/{{this.game.web3message.result}}" target="_blank" class="color-primary">{{this.game.web3message.result}}</a></small></code>
+               </div>
+            </div>
+            <div class="row mt-4">
+               <div class="col">
+                  <div *ngIf="this.game.web3message.calledFrom=='createNewChamp'">
+                     <p class="lead">New champ will be created into your portfolio as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='openLootbox'">
+                     <p class="lead">New item will be added into your portfolio as soon as transaction will be mined.</p>
+                     <div class="alert alert-secondary" role="alert">
+                        <p><strong>What are the odds?</strong></p>
+                        <p>Type of item - sword, shield or helmet</p>
+                        <ul>
+                           <li>Equally random</li>
+                        </ul>
+                        <p>Rarity of item</p>
+                        <ul>
+                           <li>45% Common</li>
+                           <li>27% Uncommon</li>
+                           <li>19% Rare</li>
+                           <li> 7% Epic</li>
+                           <li> 2% Legendary</li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='withdrawChamp'">
+                     <p class="lead">Reward will be added to your cashback as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='setChampForSale'">
+                     <p class="lead">Champ will be set for sale as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='giveChamp'">
+                     <p class="lead">Champ will be gifted to this account as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='attack'">
+                     <p class="lead">Result of fight will be visible as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='buyChamp'">
+                     <p class="lead">Congratulation, you bought new champ! Champ will be added to your portfolio as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='putOnItem'">
+                     <p class="lead">Champ will have item on as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='setItemForSale'">
+                     <p class="lead">Item will be set for sale as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='giveItem'">
+                     <p class="lead">Item will be gifted to this account as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='buyItem'">
+                     <p class="lead">Congratulation, you bought new item! Item will be added to your portfolio as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='cancelChampSale'">
+                     <p class="lead">Sale of this champ will be canceled as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='cancelItemSale'">
+                     <p class="lead">Sale of this item will be canceled as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='withdrawalFunds'">
+                     <p class="lead">Cashback will appear on your Ethereum address sent as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='changeChampsName'">
+                     <p class="lead">Champ's name will be changed as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='changePlayersName'">
+                     <p class="lead">Your name will be changed as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='forgeItems'">
+                     <p class="lead">Items will be forged together as soon as transaction will be mined.</p>
+                  </div>
+                  <div *ngIf="this.game.web3message.calledFrom=='takeOffItem'">
+                     <p class="lead">Champ will take off item as soon as transaction will be mined.</p>
+                  </div>
+                  <p class="lead">Meanwhile you can safety leave this tab and continue playing.</p>
+                  <span class="py-2">
+                     <hr>
+                  </span>
+                  <p class="color-primary">Speed of transaction</p>
+                  <ul>
+                     <li>The speed of this process depends on the gas price you have been willing to pay. Averages prices and times can be found here: <a href="https://ethgasstation.info/" target="_black" title="ETH Gas Station" class="link-primary">ethgasstation.info</a>.</li>
+                     <li>At anytime you can recast your transaction with higher fee.</li>
+                  </ul>
+                  <p class="color-primary mt-4">Do I need keep refreshing page?</p>
+                  <ul>
+                     <li>No, you don't.</li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <app-footer></app-footer>
+</ng-template>
+

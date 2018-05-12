@@ -1,0 +1,227 @@
+
+
+<app-metamask *ngIf="(this.game.MetaMaskError == 1 || this.game.MetaMaskError == 2 || this.game.MetaMaskError == 3 || this.game.MetaMaskError == 4);else content"></app-metamask>
+<ng-template #content>
+   <app-header></app-header>
+   <div *ngIf="(!this.loading);  else loadingTemplate;">
+      <div class="container-fluid mt-5">
+         <div class="container">
+            <div class="row pb-3">
+               <div class="col-2 col-sm-1">
+                  <div [innerHTML]="avatars.create(myAddressName) | keepHtml"></div>
+               </div>
+               <div class="col-5 col-sm-5 vertical-centering">
+                  <h3 class="text-address text-muted h3">{{(myAddressName != "") ? myAddressName : this.game._account.substring(0, 13)}}</h3>
+                  <small class="text-muted">
+                     <span>
+                        <a class="text-secondary" routerLink="/portfolio" (click)="openModal(renameAddressModal)">
+                           <fa name="edit"></fa>
+                           Change name
+                        </a>
+                     </span>
+                  </small>
+               </div>
+               <div class="col-5 col-sm-6 text-right vertical-centering">
+                  <h6 class="text-muted h6">Champs: {{ myChampsCount }}</h6>
+                  <h6 class="text-muted h6">Items: {{ myItemsCount }}</h6>
+               </div>
+            </div>
+         </div>
+         <div class="row header-border p-3">
+            <div class="container">
+               <div class="row align-items-center">
+                  <div class="col-sm-4 col-md-6 col-12">
+                     <h2 class="section-header primary-color">CHAMPS</h2>
+                  </div>
+                  <div class="col-sm-8 col-md-6 col-12 text-xs-left text-sm-right ">
+                     <button type="button" class="col-12 col-sm-8 offset-sm-4 c-btn c-btn-lg c-btn-primary m-1" (click)="createNewChamp()">Create Champ</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container">
+         <div class="row">
+            <div class="offset-sm-6 col-sm-6 offset-md-7 col-md-5 offset-lg-8 col-lg-4 col-12 mt-4" *ngIf="myChamps.length > 1">
+               <div class="row">
+                  <div class="form-group col-6">
+                     <select class="form-control form-control-sm" #sortByChamps (change)="orderChamps = sortByChamps.value">
+                     <option [value]="'id'">ID</option>
+                     <option [value]="'price'">Name</option>
+                     <option [value]="'position'">Position</option>
+                     <option [value]="'attackPower'">Attack power</option>
+                     <option [value]="'defencePower'">Defence power</option>
+                     <option [value]="'cooldownTime'">Cooldown time</option>
+                     </select> 
+                  </div>
+                  <div class="form-group col-6">
+                     <select class="form-control form-control-sm" #sortHighLowChamps (change)="reverseChamps = !reverseChamps">
+                     <option [value]="false">Low to high</option>
+                     <option [value]="true">High to low</option>
+                     </select>
+                  </div>
+               </div>
+            </div>
+            <div class="cai-card" *ngFor="let champ of myChamps | orderBy: orderChamps:reverseChamps" >
+               <div class="row ">
+                  <div class="col-12">
+                     <div class="color-dark">
+                        <span *ngIf="champ.forSale">
+                           <fa name="tag" class="text-success"></fa>
+                        </span>
+                        <span>{{ champ.name }}</span>
+                     </div>
+                     <p class="text-muted">
+                        #{{ champ.position }}{{ (champ.readyTime < this.blockTimestamp) ? null : ' · Zzz' }}{{ (champ.withdrawalReady < this.blockTimestamp && champ.position <= this.game.numPlayersAbleWithdrawal) ? ' · Reward' : null }}
+                     </p>
+                  </div>
+               </div>
+               <div class="row">
+                  <a class="col-12 champ-box animated {{this.game.getBackgroundColor(champ.id)}}" routerLink="/champ/{{champ.id}}" >
+                     <div class="row p-5">
+                        <img src="../../assets/img/champs/{{this.game.getChampImg(champ.id)}}" class="img-responsive">
+                     </div>
+                  </a>
+               </div>
+               <div class="row mt-3 cai-stats ">
+                  <div class="col-12 color-dark">
+                     <div class="row text-center">
+                        <div class="col-4 px-1"><img src="../../assets/img/icons/sword-small.png" alt="Attack power" title="Attack power" height="17" width="17" class="mb-1"><br><span>{{ champ.attackPower }}</span></div>
+                        <div class="col-4 px-1"><img src="../../assets/img/icons/shield-small.png" alt="Defence power" title="Defence power" height="17" width="17" class="mb-1"><br><span>{{ champ.defencePower }}</span></div>
+                        <div class="col-4 px-1"><img src="../../assets/img/icons/plus-small.png" alt="Attack cooldown" title="Attack cooldown" height="17" width="17" class="mb-1"><br><span>{{this.game.timeConvertWithoutMinutes(champ.cooldownTime)}}</span></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-12 mt-5" *ngIf="myChamps.length == 0">
+               <div class="row">
+                  <div class="offset-sm-3 col-sm-5 col-12 text-secondary text-center">
+                     <h3 class="h3">You don’t have any champs</h3>
+                     <p class="lead mt-2">Visit market for champs that are looking for a new master. Or you can just create new one for Ξ0.005.</p>
+                     <p class="lead"> <a routerLink="/market/champs" class="color-primary">Market</a> <a routerLink="/portfolio" class="color-primary ml-3" (click)="createNewChamp()">Create champ</a> </p>
+                  </div>
+                  <div class="col-sm-1 vertical-centering hidden-sm-down"><img src="../../assets/img/empty.png" class="img-fluid"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container-fluid mt-5">
+         <div class="row header-border p-3">
+            <div class="container">
+               <div class="row align-items-center">
+                  <div class="col-sm-4 col-md-6 col-12">
+                     <h2 class="section-header primary-color">INVENTORY</h2>
+                  </div>
+                  <div class="col-sm-8 col-md-6 col-12 text-xs-left text-sm-right ">
+                     <button type="button" class="col-12 col-sm-8 offset-sm-4 c-btn c-btn-lg c-btn-primary m-1" (click)="openLootbox()">Open Loot box</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container">
+         <div class="row">
+            <div class="offset-sm-6 col-sm-6 offset-md-7 col-md-5 offset-lg-8 col-lg-4 col-12 mt-4"  *ngIf="myItems.length > 1">
+               <div class="row">
+                  <div class="form-group col-6">
+                     <select class="form-control form-control-sm " #sortByItems (change)="orderItems = sortByItems.value">
+                     <option [value]="'id'">ID</option>
+                     <option [value]="'rank'">Rarity</option>
+                     <option [value]="'type'">Type</option>
+                     <option [value]="'attackPower'">Attack power</option>
+                     <option [value]="'defencePower'">Defence power</option>
+                     <option [value]="'cooldownReduction'">Cooldown reduction</option>
+                     </select> 
+                  </div>
+                  <div class="form-group col-6">
+                     <select class="form-control form-control-sm" #sortHighLowItems (change)="reverseItems = !reverseItems">
+                     <option [value]="false">Low to high</option>
+                     <option [value]="true">High to low</option>
+                     </select>
+                  </div>
+               </div>
+            </div>
+            <div class="cai-card" *ngFor="let item of myItems | orderBy: orderItems:reverseItems">
+               <div class="row">
+                  <div class="col">
+                     <div class="color-dark">
+                        <span *ngIf="item.forSale">
+                           <fa name="tag" class="text-success"></fa>
+                        </span>
+                        <span class="text-capitalize">{{item.rank}}</span> <span class="text-capitalize">{{item.type}}</span>
+                     </div>
+                     <div class="text-muted">{{item.onChamp ? 'Equiped' : 'Unequiped'}}</div>
+                  </div>
+               </div>
+               <div class="row">
+                  <a routerLink="/item/{{item.id}}">
+                     <div class="item-box my-2 animated {{this.game.getBackgroundColor(item.id)}}">
+                        <img src="../../assets/img/items/{{this.game.getItemImg(item.id, item.type, item.rank)}}" class="img-fluid p-5">
+                     </div>
+                  </a>
+               </div>
+               <div class="row mt-3 cai-stats">
+                  <div class="col-12 color-dark">
+                     <div class="row text-center">
+                        <div class="col-4 px-1"><img src="../../assets/img/icons/sword-small.png" alt="Attack power" title="Attack power" height="17" width="17" class="mb-1"><br><span>{{ item.attackPower }}</span></div>
+                        <div class="col-4 px-1"><img src="../../assets/img/icons/shield-small.png" alt="Defence power" title="Defence power" height="17" width="17" class="mb-1"><br><span>{{ item.defencePower }}</span></div>
+                        <div class="col-4 px-1"><img src="../../assets/img/icons/plus-small.png" alt="Cooldown Reduction" title="Cooldown Reduction" height="17" width="17" class="mb-1"><br><span>{{ item.cooldownReduction / 60 | number:'1.0-0' }}m</span></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-12 mt-5 ml-2 text-secondary" *ngIf="myItems.length == 0">
+               <div class="row">
+                  <div class="offset-sm-3 col-sm-5 col-12 text-secondary text-center">
+                     <h3 class="h3">You don’t have any items</h3>
+                     <p class="lead mt-2">Items increase your champs’ abilities. Visit market or try your luck and open a lootbox for Ξ0.005.</p>
+                     <p class="lead"> <a routerLink="/market/swords" class="color-primary">Market</a> <a routerLink="/portfolio" class="color-primary ml-3" (click)="openLootbox()">Open loot box</a> </p>
+                  </div>
+                  <div class="col-1 vertical-centering hidden-sm-down"><img src="../../assets/img/empty.png" class="img-fluid"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container-fluid bg-light text-center align-items-center vertical-centering py-5 mt-5">
+         <div class="row">
+            <div class="col-12 color-dark">
+               <span class="h4">YOUR CASHBACK</span>
+            </div>
+         </div>
+         <div class="row mt-4">
+            <div class="form-inline ">
+               <input type="text" class="form-control form-control-lg bg-white" value="Ξ {{ totalWithdrawalPending / 1000000000000000000 | number:'1.8-8' }}" readonly>
+               <input type="button" name="withdraw" value="Withdraw" class="c-btn c-btn-md c-btn-secondary ml-3" (click)="withdrawFunds()">
+            </div>
+         </div>
+      </div>
+   </div>
+   <ng-template #loadingTemplate>
+      <div class="loading"></div>
+   </ng-template>
+   <ng-template #renameAddressModal let-c="close" let-d="dismiss">
+      <div class="modal-header">
+         <h4 class="modal-title">Rename your address</h4>
+         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+         <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+      <form><div class="modal-body">
+         <div class="form-group">
+            <label for="name">Name</label>
+            <div class="input-group">
+               <input type="text" maxlength="12" class="form-control" name="name" id="name"  placeholder="Enter new name" [(ngModel)]="newName">
+            </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+         <button type="submit" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click');renameAddress()">
+            <fa name="edit" class="text-info"></fa>
+            Rename
+         </button>
+         <button type="button" class="c-btn c-btn-sm c-btn-grey-outline" (click)="c('Close click')">Close</button>
+      </div></form>
+   </ng-template>
+   <app-footer></app-footer>
+</ng-template>
+

@@ -1,0 +1,68 @@
+.bg-gradient{
+ background: rgb(252,70,107);
+ background: linear-gradient(180deg, rgba(252,70,107,1) 2%, rgba(252,176,69,1) 48%, rgba(0,0,0,1) 98%); 
+}
+
+.border-radius{
+	border-radius: .8rem;
+}
+
+
+.btn-play {
+  cursor: pointer;
+  border: 0;
+  display: inline-block;
+  min-width: 260px;
+  padding: 0 30px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 19px 10px rgba(255,203,187,.49);
+  height: 70px;
+  line-height: 70px;
+  color: #413245;
+  font-size: 22px;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.text-opacity{
+	color: #fffc !important;
+}
+
+.header-text{
+  color: #fbeeff !important;
+}
+
+.box-shadow{
+  box-shadow: 0 2px 2px 1px #cccc;
+}
+
+
+.fontsize-xl{
+  font-size: 3.3rem !important;
+}
+
+.fontsize-lg{
+  font-size: 2rem !important;
+}
+
+.fontsize-md{
+  font-size: 1.38rem !important;
+}
+
+@media (max-width: 575px)
+{
+  .fontsize-xl{
+    font-size: 2.6rem !important;
+  }
+
+  .fontsize-lg{
+    font-size: 1.8rem !important;
+  }
+
+  .fontsize-md{
+    font-size: 1.20rem !important;
+  }
+}

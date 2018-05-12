@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" routerLink="/"><img src="../assets/img/logo.png" width="60" height="60" class="img-fluid mr-3 logo-rounded" alt="MyCryptoChamp logo"><span>MyCryptoChamp</span></a>
+        <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div [ngbCollapse]="isNavbarCollapsed" id="navbarNavDropdown" class="navbar-collapse collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/portfolio">Play now!</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,192 @@
+/*
+ Style
+*/
+.c-btn{
+ display: inline-block;
+ border:.1rem solid #000000;
+ color: #FFFFFF;
+ border-radius: .45rem;
+ width: auto;
+ height: auto;
+ cursor: pointer;
+ line-height: 1.5;
+ text-align: center;
+ vertical-align: middle;
+ transition: all .061s;
+}
+
+.c-btn:hover, .c-btn:active, .c-btn:focus{
+ transform: translate(0px,-1px);
+}
+
+
+/*
+ Sizes
+*/
+.c-btn-xl{
+ font-size: 1.4rem;
+ padding: 24px 40px;
+}
+
+.c-btn-xl:hover, .c-btn-xl:active, .c-btn-xl:focus{
+ transform: translate(0px,-2px);
+}
+
+.c-btn-lg{
+ font-size: 1.2rem;
+ padding: 22.8px 37px;
+}
+
+.c-btn-lg:hover, .c-btn-lg:active, .c-btn-lg:focus{
+ transform: translate(0px,-2px);
+}
+
+.c-btn-md{
+ font-size: 1rem;
+ padding: 12px 20px;
+}
+
+.c-btn-sm{
+ font-size: 1rem;
+ padding: 8px 13px;
+}
+
+.c-btn-xs{
+ font-size: 1rem;
+ padding: 5px 8px;
+}
+
+
+/*
+ Colors
+*/
+.c-btn-primary{
+ box-shadow: inset 0 0 0 .24rem var(--primary-color),0 2px 2px 1px #cccc;
+ background-color: var(--primary-hover-color);
+ border-color: var(--dark-color);
+}
+
+.c-btn-primary:hover, .c-btn-primary:active, .c-btn-primary:focus{
+ box-shadow: inset 0 0 0 .24rem var(--primary-color),0 3px 2px 1px #cccc;
+}
+
+
+.c-btn-secondary{
+ box-shadow: inset 0 0 0 .24rem var(--secondary-color),0 2px 2px 1px #cccc;
+ background-color: var(--secondary-hover-color);
+ border-color: var(--dark-color);
+}
+
+.c-btn-secondary:hover, .c-btn-secondary:active, .c-btn-secondary:focus{
+ box-shadow: inset 0 0 0 .24rem var(--secondary-color),0 3px 2px 1px #cccc;
+}
+
+
+.c-btn-tertiary{
+ box-shadow: inset 0 0 0 .24rem var(--tertiary-hover-color),0 2px 2px 1px #cccc;
+ background-color: var(--tertiary-color);
+ border-color: var(--tertiary-color);
+}
+
+.c-btn-tertiary:hover, .c-btn-tertiary:active, .c-btn-tertiary:focus{
+ box-shadow: inset 0 0 0 .24rem  var(--tertiary-hover-color),0 3px 2px 1px #cccc;
+}
+
+
+.c-btn-dark{
+ box-shadow: inset 0 0 0 .24rem var(--dark-hover-color),0 2px 2px 1px #cccc;
+ background-color: var(--dark-color);
+ color: var(--light-color);
+ border-color: var(--dark-color);
+}
+
+.c-btn-dark:hover, .c-btn-dark:active, .c-btn-dark:focus{
+ box-shadow: inset 0 0 0 .24rem var(--dark-hover-color),0 3px 2px 1px #cccc;
+}
+
+
+.c-btn-light{
+ box-shadow: inset 0 0 0 .24rem var(--light-hover-color),0 2px 2px 1px #1b1e216b;
+ background-color: var(--light-color);
+ color: var(--dark-color);
+ border-color: var(--light-color);
+}
+
+.c-btn-light:hover, .c-btn-light:active, .c-btn-light:focus{
+ box-shadow: inset 0 0 0 .24rem  var(--light-hover-color),0 3px 2px 1px #1b1e216b;
+}
+
+
+/*
+Outline
+*/
+.c-btn-primary-outline{
+ border-color: var(--primary-color) !important;
+ border-width: 2px !important;
+ color: var(--primary-color) !important;
+ background: white !important;
+}
+
+.c-btn-primary-outline:hover, .c-btn-primary-outline:active, .c-btn-primary-outline:focus{
+ box-shadow: 0 1px 1px 1px #cccccc4d !important;
+}
+
+
+.c-btn-secondary-outline{
+ border-color: var(--secondary-color) !important;
+ border-width: 2px !important;
+ color: var(--secondary-color) !important;
+ background: white !important;
+}
+
+.c-btn-secondary-outline:hover, .c-btn-secondary-outline:active, .c-btn-secondary-outline:focus{
+ box-shadow: 0 1px 1px 1px #cccccc4d !important;
+}
+
+
+.c-btn-dark-outline{
+ border-color: var(--dark-color);
+ border-width: 2px;
+ color: var(--dark-color);
+ background: white;
+}
+
+.c-btn-dark-outline:hover, .c-btn-dark-outline:active, .c-btn-dark-outline:focus{
+ box-shadow: 0 1px 1px 1px #cccccc4d;
+}
+
+
+.c-btn-grey-outline{
+ border-color: var(--grey-color);
+ color: var(--dark-color);
+ background: white;
+ border-width: 2px;
+}
+
+.c-btn-grey-outline:hover, .c-btn-grey-outline:active, .c-btn-grey-outline:focus{
+ box-shadow: 0 1px 1px 1px #cccccc4d;
+}
+
+
+
+.c-btn-tertiary-outline{
+ border-color: var(--tertiary-color) !important;
+ color: var(--tertiary-color) !important;
+ background: white !important;
+ border-width: 2px !important;
+}
+
+.c-btn-tertiary-outline:hover, .c-btn-tertiary-outline:active, .c-btn-tertiary-outline:focus{
+ box-shadow: 0 1px 1px 1px #cccccc4d !important;
+}
+
+
+/*
+Disabled
+*/
+.c-btn-disabled{
+ box-shadow: inset 0 0 0 3px #fff,0 2px 2px 1px #ccc;
+ background-color: #ccc !important;	
+ border-color: #ccc !important;
+ transform: translate(0px,0px) !important;
+}

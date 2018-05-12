@@ -1,0 +1,33 @@
+:root {
+    /* Theme colours */
+    --primary-color:#0075a2;
+    --secondary-color:#B05883;
+    --dark-color:#1e152a;
+    --light-color:#efefef;
+    --tertiary-color:#6e9887;
+
+    /* Hover colors */
+    --primary-hover-color:#00a0e0;
+    --secondary-hover-color:#db6da2;
+    --dark-hover-color:#281c38;
+    --light-hover-color:#c4c4c4;
+    --tertiary-hover-color:#96d1b9;
+
+    --grey-color:#e6e6e6;
+
+    /* Backgrounds colours */
+    --background-color-1: #d3e8ff;
+    --background-color-2: #ffe0e5;
+    --background-color-3: #eee9e8;
+    --background-color-4: #d1eeeb;
+    --background-color-5: #faf4cf;
+    --background-color-6: #cdf5d4;
+    --background-color-7: #dfdffa;
+    --background-color-8: #c1c1ea;
+    --background-color-9: #efe1da;
+    --background-color-10: #efbaba;
+    --background-color-11: #fde9e4;
+    --background-color-12: #ede2f5;
+    --background-color-13: #dcebfc;
+    --background-color-14: #a2c2eb;
+}

@@ -1,0 +1,208 @@
+<app-metamask *ngIf="(this.game.MetaMaskError == 1 || this.game.MetaMaskError == 2 || this.game.MetaMaskError == 3 || this.game.MetaMaskError == 4);else content"></app-metamask>
+<ng-template #content>
+   <app-header></app-header>
+   <div class="container-fluid mt-5">
+      <div class="row header-border p-3">
+         <div class="container">
+            <div class="row">
+               <div class="col-sm-8 col-md-8 col-lg-9 col-12 my-1">
+                  <button routerLink="/market/champs" type="button" class="c-btn c-btn-xs c-btn-grey-outline text-uppercase {{this.category == 'champs' ? 'c-btn-tertiary-outline' : null}} m-1">Champs</button>
+                  <button routerLink="/market/swords" type="button" class="c-btn c-btn-xs c-btn-grey-outline text-uppercase {{this.category == 'swords' ? 'c-btn-tertiary-outline' : null}} m-1">Swords</button>
+                  <button routerLink="/market/shields" type="button" class="c-btn c-btn-xs c-btn-grey-outline text-uppercase {{this.category == 'shields' ? 'c-btn-tertiary-outline' : null}} m-1">Shields</button>
+                  <button routerLink="/market/helmets" type="button" class="c-btn c-btn-xs c-btn-grey-outline text-uppercase {{this.category == 'helmets' ? 'c-btn-tertiary-outline' : null}} m-1">Helmets</button>
+               </div>
+               <div class="col-sm-4 col-md-4 col-lg-3 col-12 my-1 vertical-centering">
+                  <div class="row">
+                     <div class="form-group col-6">
+                        <select class="form-control form-control-sm" #sortBy (change)="order = sortBy.value">
+                        <option [value]="'price'">Price</option>
+                        <option *ngIf="this.category == 'champs'" [value]="'position'">Position</option>
+                        <option [value]="'attackPower'">Attack power</option>
+                        <option [value]="'defencePower'">Defence power</option>
+                        <option *ngIf="this.category == 'champs'" [value]="'cooldownTime'">Cooldown time</option>
+                        <option *ngIf="this.category == 'swords' || this.category == 'shields' || this.category == 'helmets'" [value]="'cooldownReduction'">Cooldown reduction</option>
+                        </select> 
+                     </div>
+                     <div class="form-group col-6">
+                        <select class="form-control form-control-sm" #sortHighLow (change)="reverse = !reverse">
+                        <option [value]="false">Low to high</option>
+                        <option [value]="true">High to low</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="container">
+      <div class="row">
+         <div class="col-12 pt-3">
+            <div class="text-xs-left text-sm-center" *ngIf="this.category == 'swords' ||this.category == 'shields' ||this.category == 'helmets'">
+               <button type="button" class="c-btn c-btn-xs c-btn-grey-outline text-uppercase {{this.rankFilter == 'common' ? 'c-btn-secondary-outline' : null}} m-1" (click)=" rankFilter = (rankFilter == 'common') ? '' : 'common';actualPage = 1;">Common</button>
+               <button type="button" class="c-btn c-btn-xs c-btn-grey-outline text-uppercase {{this.rankFilter == 'uncommon' ? 'c-btn-secondary-outline' : null}} m-1" (click)="rankFilter = (rankFilter == 'uncommon') ? '' : 'uncommon';actualPage = 1;">Uncommon</button>
+               <button type="button" class="c-btn c-btn-xs c-btn-grey-outline text-uppercase {{this.rankFilter == 'rare' ? 'c-btn-secondary-outline' : null}} m-1" (click)="rankFilter = (rankFilter == 'rare') ? '' : 'rare';actualPage = 1;">Rare</button>
+               <button type="button" class="c-btn c-btn-xs c-btn-grey-outline text-uppercase {{this.rankFilter == 'epic' ? 'c-btn-secondary-outline' : null}} m-1" (click)="rankFilter = (rankFilter == 'epic') ? '' : 'epic';actualPage = 1;">Epic</button>
+               <button type="button" class="c-btn c-btn-xs c-btn-grey-outline text-uppercase {{this.rankFilter == 'legendary' ? 'c-btn-secondary-outline' : null}} m-1" (click)="rankFilter = (rankFilter == 'legendary') ? '' : 'legendary';actualPage = 1;">Legendary</button>
+               <button type="button" class="c-btn c-btn-xs c-btn-grey-outline text-uppercase {{this.rankFilter == 'forged' ? 'c-btn-secondary-outline' : null}} m-1" (click)="rankFilter = (rankFilter == 'forged') ? '' : 'forged';actualPage = 1;">Forged</button>
+            </div>
+            <div *ngIf="(this.category == 'champs')" class="row">
+               <div class="cai-card" *ngFor="let champ of champsForSale.slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage) | orderBy:order:reverse">
+                  <div class="row ">
+                     <div class="col-12">
+                        <span class="color-dark">{{ champ.name }}</span>
+                        <p class="text-muted">
+                           #{{ champ.position }} · 
+                           <span *ngIf="champ.forSale">
+                              <fa name="tag" class="text-success"></fa>
+                              Ξ {{champ.price| number:'1.1-4'}}
+                           </span>
+                        </p>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <a class="col-12 offset-0 offset-sm-0 col-sm-12 champ-box animated {{this.game.getBackgroundColor(champ.id)}}" routerLink="/champ/{{champ.id}}" >
+                        <div class="row p-5">
+                           <img src="../../assets/img/champs/{{this.game.getChampImg(champ.id)}}" class="img-responsive">
+                        </div>
+                     </a>
+                  </div>
+                  <div class="row mt-3 cai-stats ">
+                     <div class="col-12 color-dark">
+                        <div class="row text-center">
+                           <div class="col-4 px-1"><img src="../../assets/img/icons/sword-small.png" alt="Attack power" title="Attack power" height="17" width="17" class="mb-1"><br><span>{{ champ.attackPower }}</span></div>
+                           <div class="col-4 px-1"><img src="../../assets/img/icons/shield-small.png" alt="Defence power" title="Defence power" height="17" width="17" class="mb-1"><br><span>{{ champ.defencePower }}</span></div>
+                           <div class="col-4 px-1"><img src="../../assets/img/icons/plus-small.png" alt="Attack cooldown" title="Attack cooldown" height="17" width="17" class="mb-1"><br><span>{{this.game.timeConvertWithoutMinutes(champ.cooldownTime)}}</span></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-12" *ngIf="champsForSale.length > itemPerPage">
+                  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="champsForSale.length" [(page)]="actualPage" [pageSize]="itemPerPage" [maxSize]="6" [boundaryLinks]="true"></ngb-pagination>
+               </div>
+               <div class="col-12 mt-5 ml-2 text-secondary text-center" *ngIf="champsForSale.length == 0" [hidden]="!this.game.champsNothingToSale">
+               <h3 class="h3">Wow, such empty!</h3>
+               <p class="lead mt-2">Seems like nobody sells</p>
+            </div>
+         </div>
+         <div *ngIf="(this.category == 'swords')" class="row">
+            <div class="cai-card" *ngFor="let item of (swordsForSale | rankPipe:rankFilter).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage) | orderBy:order:reverse">
+               <div class="row">
+                  <div class="col">
+                     <span class="text-capitalize color-dark">{{item.rank}}</span> <span class="text-capitalize">{{item.type}}</span>
+                     <br>
+                     <span *ngIf="item.forSale">
+                        <fa name="tag" class="text-success"></fa>
+                        <span class="text-secondary">Ξ {{item.price| number:'1.1-4'}}</span>
+                     </span>
+                  </div>
+               </div>
+               <div class="row">
+                  <a routerLink="/item/{{item.id}}">
+                     <div class="item-box my-2 animated {{this.game.getBackgroundColor(item.id)}}">
+                        <img src="../../assets/img/items/{{this.game.getItemImg(item.id, item.type, item.rank)}}" class="img-fluid p-5">
+                     </div>
+                  </a>
+               </div>
+               <div class="row mt-3 cai-stats">
+                  <div class="col-12 color-dark">
+                     <div class="row text-center">
+                        <div class="col-4 px-1"><img src="../../assets/img/icons/sword-small.png" alt="Attack power" title="Attack power" height="17" width="17" class="mb-1"><br><span>{{ item.attackPower }}</span></div>
+                        <div class="col-4 px-1"><img src="../../assets/img/icons/shield-small.png" alt="Defence power" title="Defence power" height="17" width="17" class="mb-1"><br><span>{{ item.defencePower }}</span></div>
+                        <div class="col-4 px-1"><img src="../../assets/img/icons/plus-small.png" alt="Cooldown Reduction" title="Cooldown Reduction" height="17" width="17" class="mb-1"><br><span>{{ item.cooldownReduction / 60 | number:'1.0-0' }}m</span></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-12" *ngIf="(swordsForSale| rankPipe:rankFilter).length > itemPerPage">
+               <ngb-pagination class="d-flex justify-content-center" [collectionSize]="(swordsForSale| rankPipe:rankFilter).length" [(page)]="actualPage" [pageSize]="itemPerPage" [maxSize]="6" [boundaryLinks]="true"></ngb-pagination>
+            </div>
+            <div class="col-12 mt-5 ml-2 text-secondary text-center" *ngIf="(swordsForSale| rankPipe:rankFilter).length == 0" [hidden]="!this.game.swordsNothingToSale && rankFilter == null">
+            <h3 class="h3">Wow, such empty!</h3>
+            <p class="lead mt-2">Seems like nobody sells</p>
+         </div>
+      </div>
+      <div *ngIf="(this.category == 'shields')" class="row">
+         <div class="cai-card" *ngFor="let item of (shieldsForSale | rankPipe:rankFilter).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage) | orderBy:order:reverse">
+            <div class="row">
+               <div class="col">
+                  <span class="text-capitalize color-dark">{{item.rank}}</span> <span class="text-capitalize">{{item.type}}</span>
+                  <br>
+                  <span *ngIf="item.forSale">
+                     <fa name="tag" class="text-success"></fa>
+                     <span class="text-secondary">Ξ {{item.price| number:'1.1-4'}}</span>
+                  </span>
+               </div>
+            </div>
+            <div class="row">
+               <a routerLink="/item/{{item.id}}">
+                  <div class="item-box my-2 animated {{this.game.getBackgroundColor(item.id)}}">
+                     <img src="../../assets/img/items/{{this.game.getItemImg(item.id, item.type, item.rank)}}" class="img-fluid p-5">
+                  </div>
+               </a>
+            </div>
+            <div class="row mt-3 cai-stats">
+               <div class="col-12 color-dark">
+                  <div class="row text-center">
+                     <div class="col-4 px-1"><img src="../../assets/img/icons/sword-small.png" alt="Attack power" title="Attack power" height="17" width="17" class="mb-1"><br><span>{{ item.attackPower }}</span></div>
+                     <div class="col-4 px-1"><img src="../../assets/img/icons/shield-small.png" alt="Defence power" title="Defence power" height="17" width="17" class="mb-1"><br><span>{{ item.defencePower }}</span></div>
+                     <div class="col-4 px-1"><img src="../../assets/img/icons/plus-small.png" alt="Cooldown Reduction" title="Cooldown Reduction" height="17" width="17" class="mb-1"><br><span>{{ item.cooldownReduction / 60 | number:'1.0-0' }}m</span></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-12" *ngIf="(shieldsForSale| rankPipe:rankFilter).length > itemPerPage">
+            <ngb-pagination class="d-flex justify-content-center" [collectionSize]="(shieldsForSale| rankPipe:rankFilter).length" [(page)]="actualPage" [pageSize]="itemPerPage" [maxSize]="6" [boundaryLinks]="true"></ngb-pagination>
+         </div>
+         <div class="col-12 mt-5 ml-2 text-secondary text-center" *ngIf="(shieldsForSale| rankPipe:rankFilter).length == 0" [hidden]="!this.game.shieldsNothingToSale && rankFilter == null">
+         <h3 class="h3">Wow, such empty!</h3>
+         <p class="lead mt-2">Seems like nobody sells</p>
+      </div>
+   </div>
+   <div *ngIf="(this.category == 'helmets')" class="row">
+      <div class="cai-card" *ngFor="let item of (helmetsForSale | rankPipe:rankFilter).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage) | orderBy:order:reverse">
+         <div class="row">
+            <div class="col">
+               <span class="text-capitalize color-dark">{{item.rank}}</span> <span class="text-capitalize">{{item.type}}</span>
+               <br>
+               <span *ngIf="item.forSale">
+                  <fa name="tag" class="text-success"></fa>
+                  <span class="text-secondary">Ξ {{item.price| number:'1.1-4'}}</span>
+               </span>
+            </div>
+         </div>
+         <div class="row">
+            <a routerLink="/item/{{item.id}}">
+               <div class="item-box my-2 animated {{this.game.getBackgroundColor(item.id)}}">
+                  <img src="../../assets/img/items/{{this.game.getItemImg(item.id, item.type, item.rank)}}" class="img-fluid p-5">
+               </div>
+            </a>
+         </div>
+         <div class="row mt-3 cai-stats">
+            <div class="col-12 color-dark">
+               <div class="row text-center">
+                  <div class="col-4 px-1"><img src="../../assets/img/icons/sword-small.png" alt="Attack power" title="Attack power" height="17" width="17" class="mb-1"><br><span>{{ item.attackPower }}</span></div>
+                  <div class="col-4 px-1"><img src="../../assets/img/icons/shield-small.png" alt="Defence power" title="Defence power" height="17" width="17" class="mb-1"><br><span>{{ item.defencePower }}</span></div>
+                  <div class="col-4 px-1"><img src="../../assets/img/icons/plus-small.png" alt="Cooldown Reduction" title="Cooldown Reduction" height="17" width="17" class="mb-1"><br><span>{{ item.cooldownReduction / 60 | number:'1.0-0' }}m</span></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-12" *ngIf="(helmetsForSale| rankPipe:rankFilter).length > itemPerPage">
+         <ngb-pagination class="d-flex justify-content-center" [collectionSize]="(helmetsForSale| rankPipe:rankFilter).length" [(page)]="actualPage" [pageSize]="itemPerPage" [maxSize]="6" [boundaryLinks]="true"></ngb-pagination>
+      </div>
+      <div class="col-12 mt-5 ml-2 text-secondary text-center" *ngIf="(helmetsForSale| rankPipe:rankFilter).length == 0" [hidden]="!this.game.helmetsNothingToSale && rankFilter == null">
+      <h3 class="h3">Wow, such empty!</h3>
+      <p class="lead mt-2">Seems like nobody sells</p>
+   </div>
+   </div>
+   <div class="loading row" *ngIf="(this.category == 'champs' && champsForSale.length == 0)" [hidden]="this.game.champsNothingToSale"></div>
+   <div class="loading row" *ngIf="(this.category == 'swords' && swordsForSale.length == 0)" [hidden]="this.game.swordsNothingToSale"></div>
+   <div class="loading row" *ngIf="(this.category == 'shields' && shieldsForSale.length == 0)" [hidden]="this.game.shieldsNothingToSale"></div>
+   <div class="loading row" *ngIf="(this.category == 'helmets' && helmetsForSale.length == 0)" [hidden]="this.game.helmetsNothingToSale"></div>
+   </div>
+   </div>
+   </div>
+   <app-footer></app-footer>
+</ng-template>
+

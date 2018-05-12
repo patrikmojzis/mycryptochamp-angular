@@ -1,0 +1,86 @@
+.champ-box {
+	border-radius: 8px;
+}
+
+.champ-box:hover {
+  animation-name: bounce;
+}
+
+.champ-stats{
+	font-size: 90%;
+}
+
+.img-responsive {
+	height: 100%;
+	width: 100%;
+}
+
+.item-box {
+	border-radius: 8px;
+	//background-color: #f6f6f6;
+}
+
+.item-box:hover {
+  animation-name: bounce;
+}
+
+.box-border {
+	border: 1px solid #B0B0B0;
+} 
+
+.box-margin-top {
+	margin-top: 0px;
+}
+
+.boxes-margin-top {
+	margin-top: 1.5rem;
+}
+
+.text-address {
+	font-size: 90%;
+}
+
+.section-header {
+	font-size: 2.5rem;
+	font-weight: 300;
+	line-height: 1.2;
+}
+
+@media (min-width: 576px) {
+	.box-margin-top {
+		margin-top: 1.5rem;
+	}
+	.boxes-margin-top {
+		margin-top: 0px;
+	}
+	.text-address {
+		font-size: 110%;
+	}
+	.section-header {
+		font-size: 3.0rem;
+		font-weight: 300;
+		line-height: 1.2;
+	}
+}
+
+@media (min-width: 768px) {
+	.section-header {
+		font-size: 3.5rem;
+		font-weight: 300;
+		line-height: 1.2;
+	}
+}
+
+.header-border {
+	border-top: 2px solid #f3f1ee;
+	border-bottom: 2px solid #f3f1ee;
+}
+
+.secondary-color {
+	color: var(--secondary-color)
+}
+
+.primary-color {
+	color: var(--primary-color)
+}
+

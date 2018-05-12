@@ -1,0 +1,198 @@
+
+
+<app-nw3header></app-nw3header>
+<div class="container mt-5 text-center" *ngIf="this.game.MetaMaskError == 1">
+   <div class="row">
+      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+         <h2 class="h2 color-primary">Please connect to the Main Ethereum network</h2>
+      </div>
+   </div>
+   <div class="row mt-2">
+      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+         <p class="lead">Simply open MetaMask and in left top corner choose Main Ethereum network</p>
+         <div class="offset-2 col-8 mt-4">
+            <img src="../assets/img/metamask/metamask-main-ethereum-network.png" class="img-fluid" alt="MetaMask Main Ethereum Network" title="MetaMask Main Ethereum Network">
+         </div>
+      </div>
+   </div>
+</div>
+<div class="container mt-5 text-center" *ngIf="this.game.MetaMaskError == 2">
+   <div class="row">
+      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+         <h2 class="h2 color-primary">MetaMask plugin needed</h2>
+      </div>
+   </div>
+   <div class="row mt-2">
+      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+         <p class="lead">Please download MetaMask plugin for Chrome, Firefox or Opera to continue</p>
+         <div class="offset-1 col-9 mt-5">
+            <a href="https://metamask.io/" target="_blank">
+            <img src="../assets/img/metamask/download-metamask.png" class="img-fluid" alt="Download MetaMask plugin" title="Download Metamask plugin">
+            </a>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="container mt-5 text-center" *ngIf="this.game.MetaMaskError == 3">
+   <div class="row">
+      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+         <h2 class="h2 color-primary">MetaMask error</h2>
+      </div>
+   </div>
+   <div class="row mt-2">
+      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+         <p class="lead">There was an error fetching your accounts</p>
+      </div>
+   </div>
+</div>
+<div class="container mt-5 text-center" *ngIf="this.game.MetaMaskError == 4">
+   <div class="row">
+      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+         <h2 class="h2 color-primary">Your MetaMask is locked</h2>
+      </div>
+   </div>
+   <div class="row mt-2">
+      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+         <p class="lead">Simply open MetaMask and follow the instructions to unlock it</p>
+         <div class="offset-4 col-4 mt-4">
+            <img src="../assets/img/metamask/account-locked.png" class="img-fluid lock" alt="MetaMask is locked" title="Metamask is locked">
+         </div>
+      </div>
+   </div>
+</div>
+<div class="container mt-5">
+   <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <h2 class="h2 mb-4 color-dark">Getting started</h2>
+      <ngb-accordion #acc="ngbAccordion">
+         <ngb-panel title="What do I need to play MyCryptoChamp?">
+            <ng-template ngbPanelContent>
+               <ul>
+                  <li>A browser (Chrome, Firefox or Opera) with installed MetaMask plugin.</li>
+                  <li>Metamask is used as a gateway, which connects Ethereum blokchain and your browser.</li>
+                  <li>For iOS also can be used browser Cipher.</li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+         <ngb-panel title="Installing MetaMask">
+            <ng-template ngbPanelContent>
+               <ul>
+                  <li>You will need to install MetaMask</li>
+                  <li>Make sure you don’t forget your password or the seed words, since it’s only one way to access your funds.</li>
+                  <li><a href="https://metamask.io/" title="Visit MetaMask site" target="_blank">Install MetaMask</a></li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+         <ngb-panel title="Why is MetaMask locked?">
+            <ng-template ngbPanelContent>
+               <ul>
+                  <li>This happens when you haven’t logged in to MetaMask since you opened browser. </li>
+                  <li>To unlock simply click on the MetaMask extension in right top corner and type in your password.</li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+         <ngb-panel title="Getting Ether - a cryptocurrency">
+            <ng-template ngbPanelContent>
+               <ul>
+                  <li><strong>U.S. citizens only:</strong> you can buy Ether (ETH) in MetaMask. ETH is a  cryptocurrency that enables MyCryptoChamp to run.</li>
+                  <li><strong>Everyone else:</strong> you will need to purchase ETH from an exchange. The easiest way is using <a href="https://coinbase.com/" target="_blank" title="Visit Coinbase site">Coinbase</a> and then transferring the ETH from your Coinbase wallet to your MetaMask wallet.</li>
+                  <li>Unfortunately, you cannot play MyCryptoChamp with a Coinbase wallet or any other wallets.</li>
+                  <li>You cannot use USD/EUR to play MyCryptoChamp — all currencies need to be converted into ETH first.</li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+         <ngb-panel title="How to send ETH to MetaMask">
+            <ng-template ngbPanelContent>
+               <ul>
+                  <li><strong>U.S. citizens only:</strong> you are able to purchase ETH directly from the MetaMask wallet using the Coinbase widget. This is more convenient and doesn’t require you to create two accounts.</li>
+                  <li><strong>Everyone else:</strong> you need to buy ETH from an exchange using fiat currency. Coinbase is the easiest to setup however the choice is ultimately up to you.<br>Copy your MetaMask address by clicking on the <strong>“...”</strong> then <strong>“Copy Address to clipboard”</strong>. Go to Coinbase and click <strong>“Accounts”</strong> and select your ETH Wallet and then click <strong>“send”</strong>. Paste the MetaMask address in the box with the amount you’d like to transfer.</li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+         <ngb-panel title="What is ‘gas’?">
+            <ng-template ngbPanelContent>
+               <ul>
+                  <li>‘Gas’ is a shorthand used to describe the cost of powering a transaction or contract in Ethereum, which is the blockchain network that CryptoKitties is built on.</li>
+                  <li>Because blockchain is decentralized, every transaction is distributed through multiple computers, not a central server. This ensures each called operation is secure. However, it also takes more computational power, which is covered by the cost of gas. Ethereum typically communicates this cost in gwei (1 million gwei = 1 ether/ETH).</li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+      </ngb-accordion>
+   </div>
+</div>
+<div class="container mt-5">
+   <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <h2 class="h2 mb-4 color-dark">Beginners Guide</h2>
+      <ngb-accordion #acc="ngbAccordion">
+         <ngb-panel title="Fights">
+            <ng-template ngbPanelContent>
+               <ul>
+                  <li>The attacker wins when his <strong>attack power is higher</strong> than target’s defence power.</li>
+                  <li>After every fight winner is rewarded with points that are randomly divided into attack power and defence power.</li>
+                  <li>Additionally, those points are taken from champ who was defeated.</li>
+                  <li>The bigger difference between attacker’s attack power and target’s defence power, the less points are given.</li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+         <ngb-panel title="Buying new champs">
+            <ng-template ngbPanelContent>
+               <ul>
+                  <li>Every created champ gets random points to his abilities.</li>
+                  <li>Min attack power: 3</li>
+                  <li>Min defence power: 2</li>
+                  <li>Max and min cooldown time: 24h and 16h</li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+         <ngb-panel title="Items">
+            <ng-template ngbPanelContent>
+               <ul>
+                  <li>By equipping items your champ becomes stronger what increase chances to win a fight.</li>
+                  <li>New items are generated by opening loot boxes.</li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+         <ngb-panel title="Loot boxes">
+            <ng-template ngbPanelContent>
+               <p><strong>Odds</strong></p>
+               <p>Type of item - sword, shield or helmet</p>
+               <ul>
+                  <li>Equally random</li>
+               </ul>
+               <p>Rarity of item</p>
+               <ul>
+                  <li>45% Common</li>
+                  <li>27% Uncommon</li>
+                  <li>19% Rare</li>
+                  <li> 7% Epic</li>
+                  <li> 2% Legendary</li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+         <ngb-panel title="Forging items">
+            <ng-template ngbPanelContent>
+               By foring two items together you will create one better item.         
+            </ng-template>
+         </ngb-panel>
+         <ngb-panel title="Trading champs or items">
+            <ng-template ngbPanelContent>
+               <ul>
+                  <li>Players can freely trade their champs and items in the market.</li>
+                  <li>1% commission on every sale is applied.</li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+         <ngb-panel title="Rewards">
+            <ng-template ngbPanelContent>
+               <ul>
+                  <li>Top 50,000 champs are daily rewarded in Ether.</li>
+                  <li>50% of every created champ or items is going to be added to the players' rewards.</li>
+                  <li>Maximum given reward is 0.02% of all Ether for the champ in first position in leaderboard.</li>
+                  <li>Every next position 0.0000004% is subtracted.</li>
+               </ul>
+            </ng-template>
+         </ngb-panel>
+      </ngb-accordion>
+   </div>
+</div>
+<app-nw3footer></app-nw3footer>
+

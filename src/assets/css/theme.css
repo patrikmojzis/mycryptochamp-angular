@@ -1,0 +1,117 @@
+@import 'colors.css';
+@import 'anims.css';
+@import 'bootstrap-hidden.css';
+@import 'buttons.css';
+
+/*
+ Text colors
+*/
+.color-secondary{
+  color: var(--secondary-color) !important;
+}
+
+.color-primary{
+  color: var(--primary-color) !important;
+}
+
+.color-tertiary{
+  color: var(--tertiary-color) !important;
+}
+
+.color-dark{
+  color: var(--dark-color) !important;
+}
+
+.color-light{
+  color: var(--light-color) !important;
+}
+
+.text-darkgrey{
+  color: #565656 !important;
+}
+
+
+/*
+ Bg colors
+*/
+.bg-secondary{
+  background-color: var(--secondary-color) !important;
+}
+
+.bg-primary{
+  background-color: var(--primary-color) !important;
+}
+
+.bg-tertiary{
+  background-color: var(--tertiary-color) !important;
+}
+
+.bg-dark{
+  background-color: var(--dark-color) !important;
+}
+
+.bg-light{
+  background-color: var(--light-color) !important;
+}
+
+.bg-grey{
+  background-color: var(--light-color) !important;
+}
+
+.bg-white{
+  background-color: #fff !important;
+}
+
+
+/*
+ Links
+*/
+.link-primary{
+  color: var(--primary-color) !important;
+  cursor: pointer;
+}
+
+.link-primary:hover{
+  text-decoration: none;
+  color: var(--primary-hover-color) !important;
+}
+
+.link-secondary{
+  color: var(--secondary-color) !important;
+  cursor: pointer;
+}
+
+.link-secondary:hover{
+  text-decoration: none;
+  color: var(--secondary-hover-color) !important;
+}
+
+.link-tertiary{
+  color: var(--tertiary-color) !important;
+  cursor: pointer;
+}
+
+.link-tertiary:hover{
+  text-decoration: none;
+  color: var(--tertiary-hover-color) !important;
+}
+
+.link-dark{
+  color: var(--dark-color) !important;
+  cursor: pointer;
+}
+
+.link-dark:hover{
+  text-decoration: none;
+  color: var(--dark-hover-color) !important;
+}
+
+.link-light{
+  color: var(--light-color) !important;
+  cursor: pointer;
+}
+
+.link-light:hover{
+  text-decoration: none;
+  color: var(--light-hover-color) !important;
+}
