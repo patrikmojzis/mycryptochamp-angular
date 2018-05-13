@@ -736,7 +736,7 @@ export class GameService {
     this._tokenContract.attack.estimateGas(_champId, _targetId, {from: this._account}, (err, gas) => {
       if(err == null){
       	this._tokenContract.attack(_champId, _targetId, {
-            gas: gas
+            gas: gas + 50000
          	}, (err, result) => {
                 this.web3message.called = true;
                 this.web3message.calledFrom = 'attack';
