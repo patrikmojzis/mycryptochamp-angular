@@ -151,7 +151,7 @@
             <div class="form-group">
                <label for="name">Name</label>
                <div class="input-group">
-                  <input type="text" maxlength="12" class="form-control" name="name" id="name"  placeholder="Enter name" [(ngModel)]="newName">
+                  <input type="text" maxlength="12" class="form-control" name="name" id="name"  placeholder="Enter new name" [(ngModel)]="newName">
                </div>
             </div>
          </div>
@@ -173,7 +173,7 @@
          <form><div class="modal-body">
             <div class="row text-secondary">
                <div class="col-12">
-                  <p>Champ will be gifted with all dressed items.</p>
+                  <p>Champ will be gifted all the items he is wearing.</p>
                   <hr>
                </div>
             </div>
@@ -209,15 +209,15 @@
          <div class="modal-body">
             <div class="row text-secondary">
                <div class="col-12">
-                  <p>To win a fight you need to have higher attack power than target’s defence power.</p>
-                  <p>If the bolt next to your champ's name is green then you will win.</p>
-                  <p>Few ability points are moved from champ who was defeated to winner.</p>
+                  <p>To win a fight, you need to have higher attack power than target’s defence power.</p>
+                  <p>If the bolt next to your champ's name hits the green colour, you will win.</p>
+                  <p>Few ability points are moved from the champ who lost to a winner.</p>
                   <hr>
                </div>
             </div>
             <div class="row">
                <div class="col-12">
-                  <p class="text-center"><strong>Select champ to attack with</strong></p>
+                  <p class="text-center"><strong>Select a champ to attack with</strong></p>
                   <button *ngFor="let myChamp of myChamps" [hidden]="!(myChamp.readyTime < this.blockTimestamp)" type="button" class="c-btn c-btn-sm c-btn-grey-outline m-1" (click)="c('Close click');attackChamp(myChamp.id,champ.id)"><fa name="bolt" class="{{ (myChamp.attackPower > champ.defencePower) ? 'text-success' : 'text-danger' }}"></fa> {{ myChamp.name }}</button>
                   <p *ngFor="let myChamp of myChamps" [hidden]="!(myChamp.readyTime > this.blockTimestamp)" class="text-secondary text-right">{{ myChamp.name }} ready in less than {{this.game.timeConvertInAttack(myChamp.readyTime - this.blockTimestamp)}}</p>
                   <p class="text-secondary ml-1" *ngIf="myChamps.length == 0">No champs owned</p>
