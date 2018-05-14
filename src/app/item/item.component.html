@@ -53,7 +53,7 @@
             <div class="col-12 col-sm-6 col-md-4 text-sm-left text-md-right" *ngIf="isOwner">
                <h5 class="h5 text-secondary text-uppercase mb-4 mr-1">
                   <fa name="flag"></fa>
-                  Put on champ
+                  Put on the champ
                </h5>
                <button *ngFor="let myChamp of myChamps | orderBy: 'id'" type="button" class="c-btn c-btn-sm m-1 {{(item.onChamp == true && item.onChampID == myChamp.id) ? 'c-btn-tertiary-outline' : 'c-btn-grey-outline'}}" (click)="putOn(item.id,myChamp.id,item.onChampID,item.type,item.onChamp)">{{ myChamp.name }}</button>
                <p class="text-secondary" *ngIf="myChamps.length == 0">No champs owned</p>
