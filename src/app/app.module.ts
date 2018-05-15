@@ -30,6 +30,7 @@ import { FaqComponent } from './faq/faq.component';
 import { TechComponent } from './tech/tech.component';
 import { Nw3headerComponent } from './nw3header/nw3header.component';
 import { Nw3footerComponent } from './nw3footer/nw3footer.component';
+import { IfaqComponent } from './ifaq/ifaq.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { Nw3footerComponent } from './nw3footer/nw3footer.component';
     FaqComponent,
     TechComponent,
     Nw3headerComponent,
-    Nw3footerComponent
+    Nw3footerComponent,
+    IfaqComponent
   ],
   imports: [
     BrowserModule,
