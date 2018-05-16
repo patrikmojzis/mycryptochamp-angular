@@ -1,11 +1,11 @@
 //Install express server
 const express = require('express');
 const path = require('path');
-//const secure = require('ssl-express-www');
+const secure = require('ssl-express-www');
 
 const app = express();
 
-//app.use(secure);
+app.use(secure);
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist'));
