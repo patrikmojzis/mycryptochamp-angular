@@ -38,31 +38,3 @@
 .box-shadow{
   box-shadow: 0 2px 2px 1px #cccc;
 }
-
-
-.fontsize-xl{
-  font-size: 3.3rem !important;
-}
-
-.fontsize-lg{
-  font-size: 2rem !important;
-}
-
-.fontsize-md{
-  font-size: 1.38rem !important;
-}
-
-@media (max-width: 575px)
-{
-  .fontsize-xl{
-    font-size: 2.6rem !important;
-  }
-
-  .fontsize-lg{
-    font-size: 1.8rem !important;
-  }
-
-  .fontsize-md{
-    font-size: 1.20rem !important;
-  }
-}

@@ -41,8 +41,8 @@ export class MarketComponent implements OnInit, OnDestroy  {
       if(this.category != res.categor){
         this.actualPage = 1;
         this.category = res.category;
-      }
-      this.getItems();
+        this.getItems();
+      }     
     });
   }
 

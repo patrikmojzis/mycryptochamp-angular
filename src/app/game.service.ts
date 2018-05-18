@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { GetterService } from './getter.service';
+
 //import * as Web3 from 'web3';
 
 declare let Web3: any;
@@ -123,7 +125,7 @@ export class GameService {
   public MetaMaskError:number = 0;
   
  ///@notice creates web3 and connects to contract
- constructor() {
+ constructor(private _getter: GetterService) {
     //checks for WEB3
     if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider
@@ -149,13 +151,93 @@ export class GameService {
   }
 
 
-  ///@notice Reload block timestamp
-  reloadBlockTimestamp(){
-    this.getBlockTimestamp().then(res => { 
-      this.updateBlockTimestamp(res);
-    }); 
+  /*
+   *
+       UPDATE FUNCTIONS
+   *
+   */
+  ///@notice A lot of update subscribe functions down here
+  public updateMyChampsCount(newNumber: number) {
+    this.myChampsCountSource.next(newNumber)
   }
 
+  ///@notice Update subscribe function
+  public updateMyItemsCount(newNumber: number) {
+    this.myItemsCountSource.next(newNumber)
+  }
+
+  ///@notice Update subscribe function
+  public updateMyWithdrawalPending(newNumber: number) {
+    this.myWithdrawalPendingSource.next(newNumber)
+  }
+
+  ///@notice Update subscribe function
+  public updateMyChamps(newChamps: any) {
+    this.myChampsSource.next(newChamps)
+  }
+
+  ///@notice Update subscribe function
+  public updateMyItems(newItems: any) {
+    this.myItemsSource.next(newItems)
+  }
+
+  ///@notice Update subscribe function
+  public updateChampsForSale(newChamps: any) {
+    this.champsForSaleSource.next(newChamps)
+  }
+
+  ///@notice Update subscribe function
+  public updateSwordsForSale(newItems: any) {
+    this.swordsForSaleSource.next(newItems)
+  }
+
+  ///@notice Update subscribe function
+  public updateShieldsForSale(newItems: any) {
+    this.shieldsForSaleSource.next(newItems)
+  }
+
+  ///@notice Update subscribe function
+  public updateHelmetsForSale(newItems: any) {
+    this.helmetsForSaleSource.next(newItems)
+  }
+
+  ///@notice Update subscribe function
+   public updateAddressChampsCount(newNumber: number) {
+    this.addressChampsCountSource.next(newNumber)
+  }
+
+  ///@notice Update subscribe function
+  public updateAddressItemsCount(newNumber: number) {
+    this.addressItemsCountSource.next(newNumber)
+  }
+
+  ///@notice Update subscribe function
+   public updateAddressChamps(newChamps: any) {
+    this.addressChampsSource.next(newChamps)
+  }
+
+  ///@notice Update subscribe function
+  public updateAddressItems(newItems: any) {
+    this.addressItemsSource.next(newItems)
+  }
+
+  ///@notice Update subscribe function
+  public updateBlockTimestamp(newTimestamp: number) {
+    this.blockTimestampSource.next(newTimestamp)
+  }
+
+  ///@notice Update subscribe function
+  public updateMyAddressName(newName: string) {
+    this.myAddressNameSource.next(newName)
+  }
+
+
+
+  /*
+   *
+       GETTERS
+   *
+   */
 
   ///@notice Gets block timestamp from web3
   ///@dev Used by reloadBlockTimestamp();
@@ -202,53 +284,20 @@ export class GameService {
   }
 
 
-  ///@notice Checks if user has changed account in metamask
-  public checkIfAccountWasChanged(){
-    this.getAccount().then(res => {
-    if (this._web3.eth.accounts[0] !== this._account && this.MetaMaskError == 0){
-      window.location.reload();
-    }});
-  }
-
-
   ///@notice Gets champs count
   ///@dev It's result[1] from addressInfo map
   ///@param _account User address
   public async getChampsCount(_account:string): Promise<number> {
 	  let account = (_account) ? _account : await this.getAccount();
-
-	  return new Promise((resolve, reject) => {
-
-      if(this._tokenContract == undefined){
-        reject('Err');
-      }
-
-	    this._tokenContract.addressInfo.call(account, function (err, result) {
-	      if(err != null) {
-	        reject(err);
-	      }
-
-	      resolve(+result[1]);
-	    });
-	  }) as Promise<number>;
+	  return await this._getter.getChampsCount(this._tokenContract, account);
   }
 
 
   ///@notice Gets withdrawal pendings
-  ///@dev It's result[0] from addressInfo map
   ///@param _account User address
   public async getWithdrawalPending(_account:string): Promise<number> {
 	  let account = (_account) ? _account : await this.getAccount();
-
-	  return new Promise((resolve, reject) => {
-	    this._tokenContract.addressInfo.call(account, function (err, result) {
-	      if(err != null) {
-	        reject(err);
-	      }
-
-	      resolve(+result[0]);
-	    });
-	  }) as Promise<number>;
+    return await this._getter.getWithdrawalPending(this._tokenContract, account);
   }
 
 
@@ -257,62 +306,22 @@ export class GameService {
   ///@param _account User address
   public async getItemsCount(_account:string): Promise<number> {
 	  let account = (_account) ? _account : await this.getAccount();
-
-	  return new Promise((resolve, reject) => {
-	    this._tokenContract.addressInfo.call(account, function (err, result) {
-	      if(err != null) {
-	        reject(err);
-	      }
-
-	      resolve(+result[2]);
-	    });
-	  }) as Promise<number>;
+    return await this._getter.getItemsCount(this._tokenContract, account);
   }
 
 
   ///@notice Gets address name
-  ///@dev It's result[3] from addressInfo map
   ///@param _account Player's name
   public async getAddressName(_account:string): Promise<string> {
     let account = (_account) ? _account : await this.getAccount();
-
-    return new Promise((resolve, reject) => {
-      this._tokenContract.addressInfo.call(account, function (err, result) {
-        if(err != null) {
-          reject(err);
-        }
-        if(result[3].trim() == ""){
-          if(_account != null){
-            result[3] = _account.substring(0, 13);
-          }
-        }else{
-          result[3] = result[3].substring(0, 13);
-        }
-
-        //heaven :))
-        if(result[3] == "0x00000000000"){
-          result[3] = "Heaven";
-        }
-
-        resolve(result[3]);
-      });
-    }) as Promise<string>;
+    return await this._getter.getAddressName(this._tokenContract, account);
   }
 
 
   ///@notice Gets TOTAL champs count
   ///@dev Use in leadeboard
   public async getTotalChampsCount(): Promise<number> {
-
-    return new Promise((resolve, reject) => {
-      this._tokenContract.getChampsCount.call(function (err, result) {
-        if(err != null) {
-          reject(err);
-        }
-
-        resolve(+result);
-      });
-    }) as Promise<number>;
+    return await this._getter.getTotalChampsCount(this._tokenContract);
   }
 
   ///@notice Gets champs by owner
@@ -320,16 +329,7 @@ export class GameService {
   ///@returns array of champs IDs
   public async getChampsByOwner(_account:string): Promise<any> {
 	  let account = (_account) ? _account : await this.getAccount();
-
-	  return new Promise((resolve, reject) => {
-	    this._tokenContract.getChampsByOwner.call(account, function (err, result) {
-	      if(err != null) {
-	        reject(err);
-	      }
-
-	      resolve(result);
-	    });
-	  }) as Promise<any>;
+    return await this._getter.getChampsByOwner(this._tokenContract, account);
   }
 
 
@@ -338,191 +338,26 @@ export class GameService {
   ///@returns array of IDs
   public async getItemsByOwner(_account:string): Promise<any> {
 	  let account = (_account) ? _account : await this.getAccount();
-
-	  return new Promise((resolve, reject) => {
-	    this._tokenContract.getItemsByOwner.call(account, function (err, result) {
-	      if(err != null) {
-	        reject(err);
-	      }
-
-	      resolve(result);
-	    });
-	  }) as Promise<any>;
+    return await this._getter.getItemsByOwner(this._tokenContract, account);
   }
 
   ///@notice Gets champs informations
   ///@param _id Champ's id
   public async getChamp(_id:number): Promise<any> {
-
-    let owner = await this.champToOwner(_id);
-    let ownerName = await this.getAddressName(owner);
-    let attackPower = await this.getChampAttackPower(_id);
-    let defencePower = await this.getChampDefencePower(_id);
-    let cooldownReduction = await this.getChampCooldownReduction(_id);
-    let name = await this.getChampsName(_id);
-    
-	  return new Promise((resolve, reject) => {
-	    this._tokenContract.champs.call(_id, function (err, result) {
-	      if(err != null) {
-	        reject(err);
-	      }
-
-	      resolve({
-	      	'id': +result[0], 
-	      	'basicAttackPower': +result[1], 
-	      	'basicDefencePower': +result[2], 
-	      	'basicCooldownTime': +result[3], 
-          'attackPower': attackPower, 
-          'defencePower': defencePower,
-          'cooldownTime': +result[3] - cooldownReduction, 
-	      	'readyTime': +result[4], 
-	      	'winCount': +result[5], 
-	      	'lossCount': +result[6], 
-	      	'position': +result[7], 
-	      	'price': +result[8] / 1000000000000000000, 
-	      	'withdrawalReady': +result[9], 
-	      	'eq_sword': +result[10], 
-	      	'eq_shield': +result[11], 
-	      	'eq_helmet':+ result[12], 
-	      	'forSale': result[13],
-          'owner': owner,
-          'name': name,
-          'ownerName': ownerName
-	      });
-
-	    });
-	  }) as Promise<any>;
+    return this._getter.getChamp(this._tokenContract, _id)
   }
 
   ///@notice Gets item informations
   ///@param _id Item's id
   public async getItem(_id:number): Promise<any> {
-
-    let owner = await this.itemToOwner(_id);
-    let ownerName = await this.getAddressName(owner);
-
-	  return new Promise((resolve, reject) => {
-	    this._tokenContract.items.call(_id, function (err, result) {
-	      if(err != null) {
-	        reject(err);
-	      }
-        let type = "empty";
-        let rank = "common";
-
-        if(result[0] == 1){
-          type = "sword";
-        }
-
-        if(result[0] == 2){
-          type = "shield";
-        }
-
-        if(result[0] == 3){
-          type = "helmet";
-        }
-
-
-        if(result[1] == 1){
-          rank = "common";
-        }
-
-        if(result[1] == 2){
-          rank = "uncommon";
-        }
-
-        if(result[1] == 3){
-          rank = "rare";
-        }
-
-        if(result[1] == 4){
-          rank = "epic";
-        }
-
-        if(result[1] == 5){
-          rank = "legendary";
-        }
-
-        if(result[1] == 6){
-          rank = "forged";
-        }
-
-	      resolve({
-          'id': +_id,
-	      	'type': type, 
-          'rank': rank, 
-	      	'attackPower': +result[2], 
-	      	'defencePower': +result[3], 
-	      	'cooldownReduction': +result[4], 
-	      	'price': +result[5] / 1000000000000000000, 
-	      	'onChampID': result[6],
-          'onChamp': result[7], 
-	      	'forSale': result[8],
-          'owner': owner,
-          'ownerName': ownerName
-	      });
-
-	    });
-	  }) as Promise<any>;
-  }
-
-  ///@notice Creates new champ
-  ///@param _affiliateAddress Defined by cookies
-  ///@dev If 'create new champ price' is changed needs to be changed also here
-  createNewChamp(_affiliateAddress:string){
-  	_affiliateAddress = (_affiliateAddress) ? _affiliateAddress : '0x0000000000000000000000000000000000000000';
-    this._tokenContract.createChamp.estimateGas(_affiliateAddress, {from: this._account, value: this._web3.toWei(5, 'finney')}, (err, gas) => {
-      if(err == null){
-      	this._tokenContract.createChamp(_affiliateAddress, {
-            gas: gas + 80000,
-            value: this._web3.toWei(5, 'finney')
-         	}, (err, result) => {
-                this.web3message.called = true;
-                this.web3message.calledFrom = 'createNewChamp';
-                if(err){this.web3message.error = err;}
-                if(result){this.web3message.result = result;}
-        });
-      }else{
-        console.log(err);
-      }
-     });    
-  }
-
-
-  ///@notice Creates new item
-  ///@param _affiliateAddress Defined by cookies
-  ///@dev If 'create new item price' is changed needs to be changed also here
-  openLootbox(_affiliateAddress:string){
-  	_affiliateAddress = (_affiliateAddress) ? _affiliateAddress : '0x0000000000000000000000000000000000000000';
-
-    this._tokenContract.openLootbox.estimateGas(_affiliateAddress, {from: this._account, value: this._web3.toWei(5, 'finney')}, (err, gas) => {
-      if(err == null){
-      	this._tokenContract.openLootbox(_affiliateAddress, {
-            gas: gas + 80000,
-            value: this._web3.toWei(5, 'finney')
-         	}, (err, result) => {
-                this.web3message.called = true;
-                this.web3message.calledFrom = 'openLootbox';
-                if(err){this.web3message.error = err;}
-                if(result){this.web3message.result = result;}
-        });
-      }else{
-        console.log(err);
-      }
-     });    
+    return await this._getter.getItem(this._tokenContract, _id);
   }
 
 
   ///@notice Gets champ at certain position
   ///@param _position Champ's positon
   public async getChampAtPosition(_position:number): Promise<number> {
-	  return new Promise((resolve, reject) => {
-	    this._tokenContract.leaderboard.call(_position - 1, function (err, result) {
-	      if(err != null) {
-	        reject(err);
-	      }
-	      resolve(+result);
-	    });
-	  }) as Promise<number>;
+	  return await this._getter.getChampAtPosition(this._tokenContract, _position);
   }
 
 
@@ -530,14 +365,7 @@ export class GameService {
   ///@param _id Champ's id
   ///@returns Owner's address
   public async champToOwner(_id:number): Promise<string> {
-	  return new Promise((resolve, reject) => {
-	    this._tokenContract.champToOwner.call(_id, function (err, result) {
-	      if(err != null) {
-	        reject(err);
-	      }
-	      resolve(result);
-	    });
-	  }) as Promise<string>;
+	  return await this._getter.champToOwner(this._tokenContract, _id);
   }
 
 
@@ -545,19 +373,7 @@ export class GameService {
   ///@param _id Champ's id
   ///@returns Name
   public async getChampsName(_id:number): Promise<string> {
-    return new Promise((resolve, reject) => {
-      this._tokenContract.champToName.call(_id, function (err, result) {
-        if(err != null) {
-          reject(err);
-        }
-        if(result.trim() == ""){
-          result = "Champ " + _id;
-        }else{
-          result = result.substring(0, 13);
-        }
-        resolve(result);
-      });
-    }) as Promise<string>;
+    return await this._getter.getChampsName(this._tokenContract, _id);
   }
 
 
@@ -565,14 +381,7 @@ export class GameService {
   ///@param _id Item's id
   ///@returns Owner's address
   public async itemToOwner(_id:number): Promise<string> {
-    return new Promise((resolve, reject) => {
-      this._tokenContract.itemToOwner.call(_id, function (err, result) {
-        if(err != null) {
-          reject(err);
-        }
-        resolve(result);
-      });
-    }) as Promise<string>;
+    return await this._getter.itemToOwner(this._tokenContract, _id);
   }
 
 
@@ -602,27 +411,13 @@ export class GameService {
 
   ///@dev Gets IDs of champs for sale
   public async getChampsForSale(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this._tokenContract.getChampsForSale.call(function (err, result) {
-        if(err != null) {
-          reject(err);
-        }
-        resolve(result);
-      });
-    }) as Promise<any>;
+    return await this._getter.getChampsForSale(this._tokenContract);
   }
 
 
   ///@dev Gets IDs of items for sale
   public async getItemsForSale(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this._tokenContract.getItemsForSale.call(function (err, result) {
-        if(err != null) {
-          reject(err);
-        }
-        resolve(result);
-      });
-    }) as Promise<any>;
+    return await this._getter.getItemsForSale(this._tokenContract);
   }
 
 
@@ -630,14 +425,7 @@ export class GameService {
   ///@param _id Champ's ID
   ///@returns Number
   public async getChampAttackPower(_id:number): Promise<number> {
-    return new Promise((resolve, reject) => {
-      this._tokenContract.getChampStats.call(_id, function (err, result) {
-        if(err != null) {
-          reject(err);
-        }
-        resolve(+result[0]);
-      });
-    }) as Promise<number>;
+    return await this._getter.getChampAttackPower(this._tokenContract,_id);
   }
 
 
@@ -645,14 +433,7 @@ export class GameService {
   ///@param _id Champ's ID
   ///@returns Number
   public async getChampDefencePower(_id:number): Promise<number> {
-    return new Promise((resolve, reject) => {
-      this._tokenContract.getChampStats.call(_id, function (err, result) {
-        if(err != null) {
-          reject(err);
-        }
-        resolve(+result[1]);
-      });
-    }) as Promise<number>;
+    return await this._getter.getChampDefencePower(this._tokenContract,_id);
   }
 
 
@@ -660,17 +441,64 @@ export class GameService {
   ///@param _id Champ's ID
   ///@returns Number
   public async getChampCooldownReduction(_id:number): Promise<number> {
-    return new Promise((resolve, reject) => {
-      this._tokenContract.getChampStats.call(_id, function (err, result) {
-        if(err != null) {
-          reject(err);
-        }
-        resolve(+result[2]);
-      });
-    }) as Promise<number>;
+    return await this._getter.getChampCooldownReduction(this._tokenContract,_id);
+  }
+
+  ///@notice Gets champs img
+  ///@dev Modulus (25) is max count + 1 of avaiable images for champs. 
+  public getChampImg(_champID:number){
+    return this._getter.getChampImg(_champID);
   }
 
 
+  ///@notice Gets swords img
+  private getSwordImg(_itemID:number, _itemRank:string){
+    return this._getter.getSwordImg(_itemID, _itemRank);
+  }
+
+
+  ///@notice Gets shield img
+  private getShieldImg(_itemID:number, _itemRank:string){
+    return this._getter.getShieldImg(_itemID, _itemRank);
+  }
+
+
+  ///@notice Gets helmet img
+  private getHelmetImg(_itemID:number, _itemRank:string){
+    return this._getter.getHelmetImg(_itemID, _itemRank);
+  }
+
+  ///@dev Decide what function will be called to get item img based on type
+  public getItemImg(_itemID:number, _itemType:string, _itemRank:string){
+    return this._getter.getItemImg(_itemID, _itemType, _itemRank);
+  }
+
+  ///@notice Gets no-gradient bg color
+  public getBackgroundColor(_id:number){
+    return this._getter.getBackgroundColor(_id);
+  }
+
+
+  ///@notice Gets gradient bg color
+  public getBackgroundGradientColor(_id:number){
+    let backgroundColorNum = (_id % 14) + 1;
+    return 'background-gradient-color-' + backgroundColorNum;
+  }
+
+
+  ///@notice Gets champ's reward
+  ///@param _id Champ's id
+  public async getChampReward(_id:number): Promise<number> {
+    return await this._getter.getChampReward(this._tokenContract,_id);
+  }
+
+
+
+  /*
+   *
+       SETTERS
+   *
+   */
   ///@dev Sends request to move champ's reward to address pendings (if posible)
   ///@dev Can be called also if cooldown havenot passed
   public withdrawChamp(_champId:number){
@@ -888,83 +716,6 @@ export class GameService {
       }
     });
   }
-
-
-  ///@notice A lot of update subscribe functions down here
-  public updateMyChampsCount(newNumber: number) {
-    this.myChampsCountSource.next(newNumber)
-  }
-
-  ///@notice Update subscribe function
-  public updateMyItemsCount(newNumber: number) {
-    this.myItemsCountSource.next(newNumber)
-  }
-
-  ///@notice Update subscribe function
-  public updateMyWithdrawalPending(newNumber: number) {
-    this.myWithdrawalPendingSource.next(newNumber)
-  }
-
-  ///@notice Update subscribe function
-  public updateMyChamps(newChamps: any) {
-    this.myChampsSource.next(newChamps)
-  }
-
-  ///@notice Update subscribe function
-  public updateMyItems(newItems: any) {
-    this.myItemsSource.next(newItems)
-  }
-
-  ///@notice Update subscribe function
-  public updateChampsForSale(newChamps: any) {
-    this.champsForSaleSource.next(newChamps)
-  }
-
-  ///@notice Update subscribe function
-  public updateSwordsForSale(newItems: any) {
-    this.swordsForSaleSource.next(newItems)
-  }
-
-  ///@notice Update subscribe function
-  public updateShieldsForSale(newItems: any) {
-    this.shieldsForSaleSource.next(newItems)
-  }
-
-  ///@notice Update subscribe function
-  public updateHelmetsForSale(newItems: any) {
-    this.helmetsForSaleSource.next(newItems)
-  }
-
-  ///@notice Update subscribe function
-   public updateAddressChampsCount(newNumber: number) {
-    this.addressChampsCountSource.next(newNumber)
-  }
-
-  ///@notice Update subscribe function
-  public updateAddressItemsCount(newNumber: number) {
-    this.addressItemsCountSource.next(newNumber)
-  }
-
-  ///@notice Update subscribe function
-   public updateAddressChamps(newChamps: any) {
-    this.addressChampsSource.next(newChamps)
-  }
-
-  ///@notice Update subscribe function
-  public updateAddressItems(newItems: any) {
-    this.addressItemsSource.next(newItems)
-  }
-
-  ///@notice Update subscribe function
-  public updateBlockTimestamp(newTimestamp: number) {
-    this.blockTimestampSource.next(newTimestamp)
-  }
-
-  ///@notice Update subscribe function
-  public updateMyAddressName(newName: string) {
-    this.myAddressNameSource.next(newName)
-  }
-
 
   ///@notice Reloads champs
   ///@dev Update new champs in subscribe 
@@ -1231,142 +982,51 @@ export class GameService {
     });
   }
 
-  ///@dev Nulls web3message. Usually after modal is opened
-  public nullWeb3Message(){
-    this.web3message = {'called': false, 'error':null, 'result':null, 'calledFrom':null};
+
+  ///@notice Creates new champ
+  ///@param _affiliateAddress Defined by cookies
+  ///@dev If 'create new champ price' is changed needs to be changed also here
+  createNewChamp(_affiliateAddress:string){
+    _affiliateAddress = (_affiliateAddress) ? _affiliateAddress : '0x0000000000000000000000000000000000000000';
+    this._tokenContract.createChamp.estimateGas(_affiliateAddress, {from: this._account, value: this._web3.toWei(5, 'finney')}, (err, gas) => {
+      if(err == null){
+        this._tokenContract.createChamp(_affiliateAddress, {
+            gas: gas + 80000,
+            value: this._web3.toWei(5, 'finney')
+           }, (err, result) => {
+                this.web3message.called = true;
+                this.web3message.calledFrom = 'createNewChamp';
+                if(err){this.web3message.error = err;}
+                if(result){this.web3message.result = result;}
+        });
+      }else{
+        console.log(err);
+      }
+     });    
   }
 
 
-  ///@notice Gets champs img
-  ///@dev Modulus (25) is max count + 1 of avaiable images for champs. 
-  public getChampImg(_champID:number){
-    let imgNum = _champID % 25;
-    return 'champ' + imgNum + '.png';
-  }
+  ///@notice Creates new item
+  ///@param _affiliateAddress Defined by cookies
+  ///@dev If 'create new item price' is changed needs to be changed also here
+  openLootbox(_affiliateAddress:string){
+    _affiliateAddress = (_affiliateAddress) ? _affiliateAddress : '0x0000000000000000000000000000000000000000';
 
-
-  ///@notice Gets swords img
-  private getSwordImg(_itemID:number, _itemRank:string){
-    let commonCount = 7;
-    let uncommonCount = 4;
-    let rareCount = 4;
-    let epicCount = 3;
-    let legendaryCount = 4;
-
-    let imgNum = 0;
-    if(_itemRank == 'common'){
-      imgNum = _itemID % commonCount;
-    }
-
-    if(_itemRank == 'uncommon'){
-      imgNum = _itemID % uncommonCount;
-    }
-
-    if(_itemRank == 'rare'){
-      imgNum = _itemID % rareCount;
-    }
-
-    if(_itemRank == 'epic'){
-      imgNum = _itemID % epicCount;
-    }
-
-    if(_itemRank == 'legendary'){
-      imgNum = _itemID % legendaryCount;
-    }
-    
-    return 'swords/' + _itemRank + '/sword' + imgNum + '.png';
-  }
-
-
-  ///@notice Gets shield img
-  private getShieldImg(_itemID:number, _itemRank:string){
-    let commonCount = 4;
-    let uncommonCount = 6;
-    let rareCount = 5;
-    let epicCount = 5;
-    let legendaryCount = 6;
-
-    let imgNum = 0;
-    if(_itemRank == 'common'){
-      imgNum = _itemID % commonCount;
-    }
-
-    if(_itemRank == 'uncommon'){
-      imgNum = _itemID % uncommonCount;
-    }
-
-    if(_itemRank == 'rare'){
-      imgNum = _itemID % rareCount;
-    }
-
-    if(_itemRank == 'epic'){
-      imgNum = _itemID % epicCount;
-    }
-
-    if(_itemRank == 'legendary'){
-      imgNum = _itemID % legendaryCount;
-    }
-
-    return 'shields/' + _itemRank + '/shield' + imgNum + '.png';
-  }
-
-
-  ///@notice Gets helmet img
-  private getHelmetImg(_itemID:number, _itemRank:string){
-    let commonCount = 9;
-    let uncommonCount = 6;
-    let rareCount = 5;
-    let epicCount = 7;
-    let legendaryCount = 5;
-
-    let imgNum = 0;
-    if(_itemRank == 'common'){
-      imgNum = _itemID % commonCount;
-    }
-
-    if(_itemRank == 'uncommon'){
-      imgNum = _itemID % uncommonCount;
-    }
-
-    if(_itemRank == 'rare'){
-      imgNum = _itemID % rareCount;
-    }
-
-    if(_itemRank == 'epic'){
-      imgNum = _itemID % epicCount;
-    }
-
-    if(_itemRank == 'legendary'){
-      imgNum = _itemID % legendaryCount;
-    }
-    
-    return 'helmets/' + _itemRank + '/helmet' + imgNum + '.png';
-  }
-
-  ///@dev Decide what function will be called to get item img based on type
-  public getItemImg(_itemID:number, _itemType:string, _itemRank:string){
-    if(_itemType == "sword"){
-      return this.getSwordImg(_itemID, _itemRank);
-    }
-    if(_itemType == "shield"){
-      return this.getShieldImg(_itemID, _itemRank);
-    }
-    if(_itemType == "helmet"){
-      return this.getHelmetImg(_itemID, _itemRank);
-    }
-  }
-
-  ///@notice Gets no-gradient bg color
-  public getBackgroundColor(_id:number){
-    let backgroundColorNum = (_id % 14) + 1;
-    return 'background-color-' + backgroundColorNum;
-  }
-
-
-  ///@notice Gets gradient bg color
-  public getBackgroundGradientColor(_id:number){
-    let backgroundColorNum = (_id % 14) + 1;
-    return 'background-gradient-color-' + backgroundColorNum;
+    this._tokenContract.openLootbox.estimateGas(_affiliateAddress, {from: this._account, value: this._web3.toWei(5, 'finney')}, (err, gas) => {
+      if(err == null){
+        this._tokenContract.openLootbox(_affiliateAddress, {
+            gas: gas + 80000,
+            value: this._web3.toWei(5, 'finney')
+           }, (err, result) => {
+                this.web3message.called = true;
+                this.web3message.calledFrom = 'openLootbox';
+                if(err){this.web3message.error = err;}
+                if(result){this.web3message.result = result;}
+        });
+      }else{
+        console.log(err);
+      }
+     });    
   }
 
 
@@ -1446,6 +1106,18 @@ export class GameService {
   }
 
 
+
+  /*
+   *
+       BASIC FUNCTIONS
+   *
+   */
+  ///@dev Nulls web3message. Usually after modal is opened
+  public nullWeb3Message(){
+    this.web3message = {'called': false, 'error':null, 'result':null, 'calledFrom':null};
+  }
+
+
   //@notice Convert time to "16h 20m" format - used in champ page
   public timeConvert(n:number) {
     let num = n / 60;
@@ -1482,19 +1154,21 @@ export class GameService {
     return rhours + "h";
    }
 
-  ///@notice Gets champ's reward
-  ///@param _id Champ's id
-  ///@returns Name
-  public async getChampReward(_id:number): Promise<number> {
-    return new Promise((resolve, reject) => {
-      this._tokenContract.getChampReward.call(_id, function (err, result) {
-        if(err != null) {
-          reject(err);
-        }
 
-        resolve(result);
-      });
-    }) as Promise<number>;
+  ///@notice Reload block timestamp
+  reloadBlockTimestamp(){
+    this.getBlockTimestamp().then(res => { 
+      this.updateBlockTimestamp(res);
+    }); 
+  }
+
+
+  ///@notice Checks if user has changed account in metamask
+  public checkIfAccountWasChanged(){
+    this.getAccount().then(res => {
+    if (this._web3.eth.accounts[0] !== this._account && this.MetaMaskError == 0){
+      window.location.reload();
+    }});
   }
 
 }

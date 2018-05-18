@@ -13,6 +13,8 @@ import { MetamaskComponent } from './metamask/metamask.component';
 import { ForgeComponent } from './forge/forge.component';
 import { FaqComponent } from './faq/faq.component';
 import { TechComponent } from './tech/tech.component';
+import { ApiComponent } from './api/api.component';
+
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
@@ -28,7 +30,9 @@ const routes: Routes = [
 	{ path: 'metamask', component: MetamaskComponent },
 	{ path: 'forge', component: ForgeComponent },
 	{ path: 'faq', component: FaqComponent },
-	{ path: 'tech', component: TechComponent }
+	{ path: 'tech', component: TechComponent },
+	{ path: 'api/:v/:type', component: ApiComponent },
+	{ path: 'api/:v/:type/:id', component: ApiComponent }
 ];
 
 @NgModule({

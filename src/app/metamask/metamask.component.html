@@ -15,18 +15,52 @@
    </div>
 </div>
 <div class="container mt-5 text-center" *ngIf="this.game.MetaMaskError == 2">
-   <div class="row">
-      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
-         <h2 class="h2 color-primary">MetaMask plugin needed</h2>
+   <div *ngIf="!isMobile">
+      <div class="row">
+         <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+            <h2 class="h2 color-primary">MetaMask plugin needed</h2>
+         </div>
+      </div>
+      <div class="row mt-2">
+         <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+            <p class="lead">Please download MetaMask plugin for Chrome, Firefox or Opera to continue</p>
+            <div class="offset-1 col-9 mt-5">
+               <a href="https://metamask.io/" target="_blank">
+               <img src="../assets/img/metamask/download-metamask.png" class="img-fluid" alt="Download MetaMask plugin" title="Download Metamask plugin">
+               </a>
+            </div>
+         </div>
       </div>
    </div>
-   <div class="row mt-2">
-      <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-         <p class="lead">Please download MetaMask plugin for Chrome, Firefox or Opera to continue</p>
-         <div class="offset-1 col-9 mt-5">
-            <a href="https://metamask.io/" target="_blank">
-            <img src="../assets/img/metamask/download-metamask.png" class="img-fluid" alt="Download MetaMask plugin" title="Download Metamask plugin">
-            </a>
+   <div *ngIf="isMobile">
+      <div *ngIf="isTrustWalletCompatible">
+         <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+               <h4 class="h4 color-primary">Your browser is not supported</h4>
+            </div>
+         </div>
+         <div class="row mt-3">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+               <p>Please download Trust DApp Browser to continue</p>
+               <div class="offset-1 col-10">
+                  <a href="https://links.trustwalletapp.com/NxsehFgU0M" target="_blank">
+                  <img src="../assets/img/trustwallet/download-trust-wallet.png" class="img-fluid" alt="Download TrustWallet" title="Download TrustWallet">
+                  </a>
+               </div>
+               <p class="mt-4 text-secondary">Already have Trust Wallet? <a href="https://links.trustwalletapp.com/NxsehFgU0M" class="link-primary">Click here</a></p>
+            </div>
+         </div>
+      </div>
+      <div *ngIf="!isTrustWalletCompatible">
+         <div class="row">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+               <h4 class="h4 color-primary">Your browser is not supported</h4>
+            </div>
+         </div>
+         <div class="row mt-2">
+            <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+               <p>To continue you need browser or extension that supports DApps.</p>
+            </div>
          </div>
       </div>
    </div>

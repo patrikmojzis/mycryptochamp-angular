@@ -84,3 +84,6 @@
 	color: var(--primary-color)
 }
 
+.banner{
+    border-bottom: 1px solid #dfdfdf;
+}

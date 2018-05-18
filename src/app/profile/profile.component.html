@@ -5,10 +5,10 @@
       <div class="container-fluid mt-5">
          <div class="container">
             <div class="row pb-3">
-               <div class="col-2 col-sm-1">
+               <div class="col-3 col-sm-2 col-md-1">
                   <div [innerHTML]="avatars.create(addressName) | keepHtml"></div>
                </div>
-               <div class="col-5 col-sm-5 vertical-centering">
+               <div class="col-9 col-sm-10 col-md-5 vertical-centering">
                   <h3 class="text-address text-muted h3">{{(addressName != "") ? addressName : 'Loading name...'}}</h3>
                   <span class="text-muted span">{{ champsCount }} champ {{ itemsCount }} items</span>
                </div>

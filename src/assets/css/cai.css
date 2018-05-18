@@ -1,13 +1,13 @@
 .cai-card{
-  width: 100%;
-  padding: 2.5rem !important;
+  width: 50%;
+  padding: 1.4rem !important;
   font-size: .94rem;
 }
 
 @media (min-width: 576px) {
   .cai-card{
-    width: 50%;
-    padding: 1.5rem !important;
+    width: 33.333333333%;
+    padding: 1.4rem !important;
   }
 }
 
