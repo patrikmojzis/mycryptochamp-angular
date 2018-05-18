@@ -2,7 +2,7 @@
 <ng-template #content>
    <app-header></app-header>
    <div class="banner color-dark bg-light py-3 text-center">
-      Join our growing community at <a href="https://discord.gg/HxYxrZg" target="_blank" class="link-secondary">Discord</a>.
+      Join our fast-growing community at <a href="https://discord.gg/HxYxrZg" target="_blank" class="link-secondary">Discord</a>.
    </div>
    <div *ngIf="(!this.loading);  else loadingTemplate;">
       <div class="container-fluid mt-5">
@@ -31,10 +31,10 @@
          <div class="row header-border p-3">
             <div class="container">
                <div class="row align-items-center">
-                  <div class="col-sm-4 col-md-6 col-12 text-center text-sm-left">
+                  <div class="col-sm-4 col-md-6 col-12 text-left">
                      <h2 class="section-header primary-color">CHAMPS</h2>
                   </div>
-                  <div class="col-sm-8 col-md-6 col-12 text-center text-sm-right">
+                  <div class="col-sm-8 col-md-6 col-12 text-center text-sm-right hidden-xs-down">
                      <button type="button" class="col-12 col-sm-8 offset-sm-4 c-btn c-btn-lg c-btn-primary m-1" (click)="createNewChamp()">Create a Champ</button>
                   </div>
                </div>
@@ -104,16 +104,19 @@
                   <div class="col-sm-1 vertical-centering hidden-sm-down"><img src="../../assets/img/empty.png" class="img-fluid"></div>
                </div>
             </div>
+            <div class="col-12 text-center hidden-sm-up header-border py-4 mt-4">
+               <button type="button" class="col-12 col-sm-8 offset-sm-4 c-btn c-btn-lg c-btn-primary m-1" (click)="createNewChamp()">Create a Champ</button>
+            </div>
          </div>
       </div>
       <div class="container-fluid mt-5">
          <div class="row header-border p-3">
             <div class="container">
                <div class="row align-items-center">
-                  <div class="col-sm-4 col-md-6 col-12 text-center text-sm-left">
+                  <div class="col-sm-4 col-md-6 col-12 text-left">
                      <h2 class="section-header primary-color">INVENTORY</h2>
                   </div>
-                  <div class="col-sm-8 col-md-6 col-12 text-center text-sm-right">
+                  <div class="col-sm-8 col-md-6 col-12 text-right hidden-xs-down">
                      <button type="button" class="col-12 col-sm-8 offset-sm-4 c-btn c-btn-lg c-btn-primary m-1" (click)="openLootbox()">Open a Loot box</button>
                   </div>
                </div>
@@ -180,6 +183,9 @@
                   </div>
                   <div class="col-1 vertical-centering hidden-sm-down"><img src="../../assets/img/empty.png" class="img-fluid"></div>
                </div>
+            </div>
+            <div class="col-12 text-center hidden-sm-up header-border py-4 mt-4">
+               <button type="button" class="col-12 col-sm-8 offset-sm-4 c-btn c-btn-lg c-btn-primary m-1" (click)="openLootbox()">Open a Loot box</button>
             </div>
          </div>
       </div>
