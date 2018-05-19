@@ -52,8 +52,6 @@ export class MarketComponent implements OnInit, OnDestroy  {
     this.game.swordsForSale.takeUntil(this._onDestroy).subscribe(res => this.swordsForSale = res);
     this.game.shieldsForSale.takeUntil(this._onDestroy).subscribe(res => this.shieldsForSale = res);
     this.game.helmetsForSale.takeUntil(this._onDestroy).subscribe(res => this.helmetsForSale = res);
-    //UPDATE
-    this.getItems();
   }
 
   ///@dev Loads items by priority

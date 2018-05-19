@@ -43,6 +43,8 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   totalWithdrawalPending:number = 0;
 
+  //champsForSale:any;
+
   private _onDestroy = new Subject();
 
   constructor(public game: GameService, private orderPipe: OrderPipe, private cookieService: CookieService, private modalService: NgbModal) {
@@ -55,6 +57,8 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.game.myAddressName.takeUntil(this._onDestroy).subscribe(res => this.myAddressName = res);
     this.game.myWithdrawalPending.takeUntil(this._onDestroy).subscribe(res => this.totalWithdrawalPending = res);
     
+    //this.game.champsForSale.takeUntil(this._onDestroy).subscribe(res => this.champsForSale = res);
+
     if(this.myChamps.length > 0 || this.myItems.length > 0){
       this.loading = false; 
     }else{
@@ -112,6 +116,10 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       this.totalWithdrawalPending = res;
       this.game.updateMyWithdrawalPending(res);
     });
+
+    //reload market
+    this.game.reloadChampsForSale();
+    this.game.reloadItemsForSale();
   }
 
   async reloadAddressName(){
