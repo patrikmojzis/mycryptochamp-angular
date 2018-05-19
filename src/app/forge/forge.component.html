@@ -40,7 +40,7 @@
                <div class="row">
                   <a routerLink="/forge" (click)="parentItem=item.id">
                      <div class="{{(parentItem == item.id) ? 'border border-success' : null}} item-box my-2 animated {{this.game.getBackgroundColor(item.id)}}">
-                        <img src="../../assets/img/items/{{this.game.getItemImg(item.id, item.type, item.rank)}}" class="img-fluid p-5">
+                        <img src="../../assets/img/items-sm/{{this.game.getItemImg(item.id, item.type, item.rank)}}" class="img-fluid p-5">
                      </div>
                   </a>
                </div>
@@ -80,7 +80,7 @@
                <div class="row">
                   <a routerLink="/forge" (click)="childItem=item.id">
                      <div class="{{(childItem == item.id) ? 'border border-success' : null}} item-box my-2 animated {{this.game.getBackgroundColor(item.id)}}">
-                        <img src="../../assets/img/items/{{this.game.getItemImg(item.id, item.type, item.rank)}}" class="img-fluid p-5">
+                        <img src="../../assets/img/items-sm/{{this.game.getItemImg(item.id, item.type, item.rank)}}" class="img-fluid p-5">
                      </div>
                   </a>
                </div>
@@ -109,7 +109,7 @@
                   </div>
                   <div class="row">
                      <div class="item-box my-2 {{this.game.getBackgroundColor(parentItem)}}">
-                        <img src="../../assets/img/items/{{this.game.getItemImg(parentItem, FIgetType(), 'forged')}}" class="img-fluid p-5">
+                        <img src="../../assets/img/items-sm/{{this.game.getItemImg(parentItem, FIgetType(), 'forged')}}" class="img-fluid p-5">
                      </div>
                   </div>
                   <div class="row mt-3 cai-stats">
