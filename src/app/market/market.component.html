@@ -81,9 +81,9 @@
                   <ngb-pagination class="d-flex justify-content-center" [collectionSize]="champsForSale.length" [(page)]="actualPage" [pageSize]="itemPerPage" [maxSize]="6" [boundaryLinks]="true"></ngb-pagination>
                </div>
                <div class="col-12 mt-5 ml-2 text-secondary text-center" *ngIf="champsForSale.length == 0" [hidden]="!this.game.champsNothingToSale">
-               <h3 class="h3">Wow, such empty!</h3>
-               <p class="lead mt-2">Seems like nobody sells</p>
-            </div>
+                  <h3 class="h3">Wow, such empty!</h3>
+                  <p class="lead mt-2">Seems like nobody sells</p>
+               </div>
          </div>
          <div *ngIf="(this.category == 'swords')" class="row">
             <div class="cai-card" *ngFor="let item of (swordsForSale | rankPipe:rankFilter).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage) | orderBy:order:reverse">
@@ -118,9 +118,9 @@
                <ngb-pagination class="d-flex justify-content-center" [collectionSize]="(swordsForSale| rankPipe:rankFilter).length" [(page)]="actualPage" [pageSize]="itemPerPage" [maxSize]="6" [boundaryLinks]="true"></ngb-pagination>
             </div>
             <div class="col-12 mt-5 ml-2 text-secondary text-center" *ngIf="(swordsForSale| rankPipe:rankFilter).length == 0" [hidden]="!this.game.swordsNothingToSale && rankFilter == null">
-            <h3 class="h3">Wow, such empty!</h3>
-            <p class="lead mt-2">Seems like nobody sells</p>
-         </div>
+               <h3 class="h3">Wow, such empty!</h3>
+               <p class="lead mt-2">Seems like nobody sells</p>
+            </div>
       </div>
       <div *ngIf="(this.category == 'shields')" class="row">
          <div class="cai-card" *ngFor="let item of (shieldsForSale | rankPipe:rankFilter).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage) | orderBy:order:reverse">
@@ -155,9 +155,9 @@
             <ngb-pagination class="d-flex justify-content-center" [collectionSize]="(shieldsForSale| rankPipe:rankFilter).length" [(page)]="actualPage" [pageSize]="itemPerPage" [maxSize]="6" [boundaryLinks]="true"></ngb-pagination>
          </div>
          <div class="col-12 mt-5 ml-2 text-secondary text-center" *ngIf="(shieldsForSale| rankPipe:rankFilter).length == 0" [hidden]="!this.game.shieldsNothingToSale && rankFilter == null">
-         <h3 class="h3">Wow, such empty!</h3>
-         <p class="lead mt-2">Seems like nobody sells</p>
-      </div>
+            <h3 class="h3">Wow, such empty!</h3>
+            <p class="lead mt-2">Seems like nobody sells</p>
+         </div>
    </div>
    <div *ngIf="(this.category == 'helmets')" class="row">
       <div class="cai-card" *ngFor="let item of (helmetsForSale | rankPipe:rankFilter).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage) | orderBy:order:reverse">
@@ -192,9 +192,9 @@
          <ngb-pagination class="d-flex justify-content-center" [collectionSize]="(helmetsForSale| rankPipe:rankFilter).length" [(page)]="actualPage" [pageSize]="itemPerPage" [maxSize]="6" [boundaryLinks]="true"></ngb-pagination>
       </div>
       <div class="col-12 mt-5 ml-2 text-secondary text-center" *ngIf="(helmetsForSale| rankPipe:rankFilter).length == 0" [hidden]="!this.game.helmetsNothingToSale && rankFilter == null">
-      <h3 class="h3">Wow, such empty!</h3>
-      <p class="lead mt-2">Seems like nobody sells</p>
-   </div>
+         <h3 class="h3">Wow, such empty!</h3>
+         <p class="lead mt-2">Seems like nobody sells</p>
+      </div>
    </div>
    <div class="loading row" *ngIf="(this.category == 'champs' && champsForSale.length == 0)" [hidden]="this.game.champsNothingToSale"></div>
    <div class="loading row" *ngIf="(this.category == 'swords' && swordsForSale.length == 0)" [hidden]="this.game.swordsNothingToSale"></div>
