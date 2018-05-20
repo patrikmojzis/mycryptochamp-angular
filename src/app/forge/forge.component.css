@@ -1,10 +1,23 @@
 .w-lg-100{
-  width: auto;
+  width: 25%;
  }
+
+.align-cai-center-custom{
+  display: -webkit-box;
+  -webkit-box-pack: center;
+}
 
 @media (max-width: 922px)
 {
+ .align-cai-center-custom{
+  display: flex !important;
+}
  .w-lg-100{
   width: 100% !important;
  }
+ .center-cai{
+ 	margin-left: auto !important;
+    margin-right: auto !important;
+ }
 }
+
