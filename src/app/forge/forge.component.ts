@@ -24,6 +24,10 @@ export class ForgeComponent implements OnInit, OnDestroy {
 
   affiliateAddress:string;
 
+  howDoesForgeWork:boolean = true;
+
+  changeParentOnNextClick:boolean = true;
+
   private _onDestroy = new Subject();
 
   constructor(public game: GameService, private cookieService: CookieService) { 
@@ -109,6 +113,16 @@ export class ForgeComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
       this._onDestroy.next();
+    }
+
+    clickItem(_id:number){
+      if(this.changeParentOnNextClick){
+        this.parentItem = _id;
+        this.changeParentOnNextClick = !this.changeParentOnNextClick;
+      }else{
+        this.childItem = _id;
+        this.changeParentOnNextClick = !this.changeParentOnNextClick;
+      }
     }
 
 }

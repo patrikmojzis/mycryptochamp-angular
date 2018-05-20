@@ -39,3 +39,16 @@
   border: 1px solid;
   border-color: #ccc;
 }
+
+.cai-box {
+  border-radius: 8px;
+}
+
+.cai-box:hover {
+  animation-name: bounce;
+}
+
+.align-cai-center{
+  display: -webkit-box;
+  -webkit-box-pack: center;
+}

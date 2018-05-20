@@ -62,13 +62,13 @@
             <div class="col-12 col-sm-6 col-md-4 order-1 order-sm-2 mt-5">
                <div class="row">
                   <div class="col-4 col-sm-4" *ngIf="!itemSword.id">
-                     <div class="item-box my-2 bg-grey">
+                     <div class="cai-box my-2 bg-grey">
                         <img src="../../assets/img/items/empty/sword.png" class="img-fluid p-3">
                      </div>
                   </div>
                   <div class="col-4 col-sm-4" *ngIf="itemSword.id">
                      <a routerLink="/item/{{itemSword.id}}">
-                        <div class="item-box my-2 animated {{this.game.getBackgroundColor(itemSword.id)}}" 
+                        <div class="cai-box my-2 animated {{this.game.getBackgroundColor(itemSword.id)}}" 
                            placement="top" 
                            ngbTooltip="AP {{itemSword.attackPower}} · DP {{itemSword.defencePower}} · CR {{itemSword.cooldownReduction / 60 | number:'1.0-0' }}m">
                            <img src="../../assets/img/items-sm/{{this.game.getItemImg(itemSword.id, itemSword.type, itemSword.rank)}}" class="img-fluid p-3">
@@ -76,13 +76,13 @@
                      </a>
                   </div>
                   <div class="col-4 col-sm-4" *ngIf="!itemShield.id">
-                     <div class="item-box my-2 bg-grey">
+                     <div class="cai-box my-2 bg-grey">
                         <img src="../../assets/img/items/empty/shield.png" class="img-fluid p-3">
                      </div>
                   </div>
                   <div class="col-4 col-sm-4" *ngIf="itemShield.id">
                      <a routerLink="/item/{{itemShield.id}}">
-                        <div class="item-box my-2 animated {{this.game.getBackgroundColor(itemShield.id)}}" 
+                        <div class="cai-box my-2 animated {{this.game.getBackgroundColor(itemShield.id)}}" 
                            placement="top" 
                            ngbTooltip="AP {{itemShield.attackPower}} · DP {{itemShield.defencePower}} · CR {{itemShield.cooldownReduction / 60 | number:'1.0-0' }}m">
                            <img src="../../assets/img/items-sm/{{this.game.getItemImg(itemShield.id, itemShield.type, itemShield.rank)}}" class="img-fluid p-3">
@@ -90,13 +90,13 @@
                      </a>
                   </div>
                   <div class="col-4 col-sm-4" *ngIf="!itemHelmet.id">
-                     <div class="item-box my-2 bg-grey">
+                     <div class="cai-box my-2 bg-grey">
                         <img src="../../assets/img/items/empty/helmet.png" class="img-fluid p-3">
                      </div>
                   </div>
                   <div class="col-4 col-sm-4" *ngIf="itemHelmet.id">
                      <a routerLink="/item/{{itemHelmet.id}}">
-                        <div class="item-box my-2 animated {{this.game.getBackgroundColor(itemHelmet.id)}}" 
+                        <div class="cai-box my-2 animated {{this.game.getBackgroundColor(itemHelmet.id)}}" 
                            placement="top" 
                            ngbTooltip="AP {{itemHelmet.attackPower}} · DP {{itemHelmet.defencePower}} · CR {{itemHelmet.cooldownReduction / 60 | number:'1.0-0' }}m">
                            <img src="../../assets/img/items-sm/{{this.game.getItemImg(itemHelmet.id, itemHelmet.type, itemHelmet.rank)}}" class="img-fluid p-3">

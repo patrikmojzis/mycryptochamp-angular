@@ -1,3 +1,3 @@
-# MyCryptoChamp v1.1.1
+# MyCryptoChamp v1.2.0
 
 https://mycryptochamp.io

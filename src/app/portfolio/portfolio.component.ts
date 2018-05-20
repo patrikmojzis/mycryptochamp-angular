@@ -43,7 +43,8 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   totalWithdrawalPending:number = 0;
 
-  //champsForSale:any;
+  champsForSale:any;
+  swordsForSale:any;
 
   private _onDestroy = new Subject();
 
@@ -57,7 +58,8 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.game.myAddressName.takeUntil(this._onDestroy).subscribe(res => this.myAddressName = res);
     this.game.myWithdrawalPending.takeUntil(this._onDestroy).subscribe(res => this.totalWithdrawalPending = res);
     
-    //this.game.champsForSale.takeUntil(this._onDestroy).subscribe(res => this.champsForSale = res);
+    this.game.champsForSale.takeUntil(this._onDestroy).subscribe(res => this.champsForSale = res);
+    this.game.swordsForSale.takeUntil(this._onDestroy).subscribe(res => this.swordsForSale = res);
 
     if(this.myChamps.length > 0 || this.myItems.length > 0){
       this.loading = false; 

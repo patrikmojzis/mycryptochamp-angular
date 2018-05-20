@@ -7,14 +7,14 @@
       <div class="row header-border p-3">
          <div class="container">
             <div class="row align-items-center">
-               <div class="col-3 col-sm-2 col-md-1 align-items-center vertical-centering order-3 order-sm-1 p-3"> <input type="image" src="../../assets/img/icons/carousel-arrow.png" (click)="showingChampMinus()" class="img-fluid arrow-left" height="50" width="50">  </div>
+               <div class="col-3 col-sm-2 col-md-1 align-items-center vertical-centering order-3 order-sm-1 p-3"> <input type="image" src="../../assets/img/icons/carousel-arrow.png" (click)="showingChampMinus()" class="img-fluid arrow-left" height="50" width="50" alt="Left">  </div>
                <div class="col-sm-6 col-md-8 col-12 order-1 order-sm-2">
                   <button [hidden]="myChamps.length == 0" *ngFor="let myChamp of myChamps | orderBy: 'id'" type="button" class="c-btn c-btn-xs {{showingChamp - 2 == myChamp.position || showingChamp -1 == myChamp.position || showingChamp == myChamp.position || showingChamp + 1 == myChamp.position || showingChamp + 2 == myChamp.position ? 'c-btn-tertiary-outline' : 'c-btn-grey-outline'}} m-1" (click)="goTo(myChamp.position)" >{{ myChamp.name }}</button>
                </div>
                <div class="col-sm-2 col-md-2 col-12 text-xs-left text-sm-right order-2 order-sm-3">
                   <button type="button" class="c-btn c-btn-xs m-1 {{showingChamp - 2 == 1 ?'c-btn-secondary-outline' : 'c-btn-grey-outline'}}" (click)="goTo(1)">#1</button>
                </div>
-               <div class="col-3 offset-6 offset-sm-0 col-sm-2 col-md-1 align-items-center vertical-centering order-4 order-sm-4 p-3"> <input type="image" src="../../assets/img/icons/carousel-arrow.png" (click)="showingChampPlus()" class="img-fluid arrow-right" height="50" width="50"> </div>
+               <div class="col-3 offset-6 offset-sm-0 col-sm-2 col-md-1 align-items-center vertical-centering order-4 order-sm-4 p-3"> <input type="image" src="../../assets/img/icons/carousel-arrow.png" (click)="showingChampPlus()" class="img-fluid arrow-right" height="50" width="50" alt="Right"> </div>
             </div>
          </div>
       </div>
@@ -35,7 +35,7 @@
                </div>
             </div>
             <div class="row">
-               <a class="col-12 offset-0 offset-sm-0 col-sm-12 champ-box animated {{this.game.getBackgroundColor(champ.id)}}" routerLink="/champ/{{champ.id}}" >
+               <a class="col-12 offset-0 offset-sm-0 col-sm-12 cai-box animated {{this.game.getBackgroundColor(champ.id)}}" routerLink="/champ/{{champ.id}}" >
                   <div class="row p-5">
                      <img src="../../assets/img/champs-sm/{{this.game.getChampImg(champ.id)}}" class="img-responsive">
                   </div>
@@ -59,8 +59,8 @@
    <div class="container mt-5">
       <div class="row">
          <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 text-center">
-            <p class="lead text-secondary">You can challenge every champ you want. Champs gain their abilities and climb the leaderboard by winning fights.</p>
-            <p class="lead"><a routerLink="/faq" class="link-secondary" title="Visit FAQ">See full FAQ</a></p>
+            <p class="fontsize-sm font-thin text-secondary">You can challenge every champ you want. Champs gain their abilities and climb the leaderboard by winning fights.</p>
+            <p class="fontsize-sm font-thin"><a routerLink="/faq" class="link-secondary" title="Visit FAQ">See full FAQ</a></p>
          </div>
       </div>
    </div>
