@@ -47,7 +47,7 @@
                <button type="button" class="c-btn c-btn-xs c-btn-grey-outline text-uppercase {{this.rankFilter == 'forged' ? 'c-btn-secondary-outline' : null}} m-1" (click)="rankFilter = (rankFilter == 'forged') ? '' : 'forged';actualPage = 1;">Forged</button>
             </div>
             <div *ngIf="(this.category == 'champs')" class="row">
-               <div class="cai-card" *ngFor="let champ of champsForSale.slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage) | orderBy:order:reverse">
+               <div class="cai-card" *ngFor="let champ of (champsForSale | orderBy:order:reverse).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage)"> 
                   <div class="row ">
                      <div class="col-12">
                         <span class="color-dark">{{ champ.name }}</span>
@@ -86,7 +86,7 @@
                </div>
          </div>
          <div *ngIf="(this.category == 'swords')" class="row">
-            <div class="cai-card" *ngFor="let item of (swordsForSale | rankPipe:rankFilter).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage) | orderBy:order:reverse">
+            <div class="cai-card" *ngFor="let item of ((swordsForSale | rankPipe:rankFilter) | orderBy:order:reverse).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage)">
                <div class="row">
                   <div class="col-12">
                      <span class="text-capitalize color-dark">{{item.rank}}</span> <span class="text-capitalize">{{item.type}}</span>
@@ -122,7 +122,7 @@
             </div>
       </div>
       <div *ngIf="(this.category == 'shields')" class="row">
-         <div class="cai-card" *ngFor="let item of (shieldsForSale | rankPipe:rankFilter).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage) | orderBy:order:reverse">
+         <div class="cai-card" *ngFor="let item of ((shieldsForSale | rankPipe:rankFilter) | orderBy:order:reverse).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage)">
             <div class="row">
                <div class="col">
                   <span class="text-capitalize color-dark">{{item.rank}}</span> <span class="text-capitalize">{{item.type}}</span>
@@ -159,7 +159,7 @@
          </div>
    </div>
    <div *ngIf="(this.category == 'helmets')" class="row">
-      <div class="cai-card" *ngFor="let item of (helmetsForSale | rankPipe:rankFilter).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage) | orderBy:order:reverse">
+      <div class="cai-card" *ngFor="let item of ((helmetsForSale | rankPipe:rankFilter) | orderBy:order:reverse).slice(itemPerPage * (actualPage - 1),itemPerPage * (actualPage - 1) + itemPerPage)">
          <div class="row">
             <div class="col">
                <span class="text-capitalize color-dark">{{item.rank}}</span> <span class="text-capitalize">{{item.type}}</span>
