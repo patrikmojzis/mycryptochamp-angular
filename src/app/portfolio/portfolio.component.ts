@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GameService } from '../game.service';
 import { OrderPipe } from 'ngx-order-pipe';
 import { Observable } from 'rxjs/Rx';
-import { CookieService } from 'ngx-cookie-service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Avatars from '@dicebear/avatars';
 import SpriteCollection from '@dicebear/avatars-identicon-sprites';
@@ -23,8 +22,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   myChamps:any = [];
   myItems:any = [];
   blockTimestamp:number;
-
-  affiliateAddress:string;
   
   //loading
   loaderSubscription:any;
@@ -45,10 +42,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   champsForSale:any;
   swordsForSale:any;
+  shieldsForSale:any;
 
   private _onDestroy = new Subject();
 
-  constructor(public game: GameService, private orderPipe: OrderPipe, private cookieService: CookieService, private modalService: NgbModal) {
+  constructor(public game: GameService, private orderPipe: OrderPipe, private modalService: NgbModal) {
     //SUBSCRIBE PART
     this.game.myChampsCount.takeUntil(this._onDestroy).subscribe(res => this.myChampsCount = res);
     this.game.myItemsCount.takeUntil(this._onDestroy).subscribe(res => this.myItemsCount = res);
@@ -60,6 +58,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     
     this.game.champsForSale.takeUntil(this._onDestroy).subscribe(res => this.champsForSale = res);
     this.game.swordsForSale.takeUntil(this._onDestroy).subscribe(res => this.swordsForSale = res);
+    this.game.shieldsForSale.takeUntil(this._onDestroy).subscribe(res => this.shieldsForSale = res);
 
     if(this.myChamps.length > 0 || this.myItems.length > 0){
       this.loading = false; 
@@ -75,9 +74,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    //get affiliate address
-    this.affiliateAddress = (this.cookieService.get('affiliateAddress') != '') ? this.cookieService.get('affiliateAddress') : null; 
-
     //keep updated
     Observable.timer(0,8000).takeUntil(this._onDestroy).subscribe(x => {
       this.update();
@@ -128,6 +124,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.game.updateMyAddressName(await this.game.getAddressName(this.game._account));
   }
 
+  /*
   ///@notice Calls Web3 in Game service
   createNewChamp() {
     this.game.createNewChamp(this.affiliateAddress);
@@ -137,6 +134,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   openLootbox() {
     this.game.openLootbox(this.affiliateAddress);
   }
+  */
 
   ///@dev Gets item's info from myItems
   getMyItem(_itemID:number){

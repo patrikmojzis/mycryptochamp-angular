@@ -102,9 +102,9 @@ export class GameService {
   public _account: string = null;
   private _web3: any;
   
-  private _abi:any = [{"constant": true,"inputs": [],"name": "getItemsForSale","outputs": [{"name": "","type": "uint256[]"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "itemsForSaleCount","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "uint256"}],"name": "itemToOwner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "champsForSaleCount","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "address"}],"name": "addressInfo","outputs": [{"name": "withdrawal","type": "uint256"},{"name": "champsCount","type": "uint256"},{"name": "itemsCount","type": "uint256"},{"name": "name","type": "string"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "_owner","type": "address"}],"name": "getItemsByOwner","outputs": [{"name": "","type": "uint256[]"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "getChampsCount","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_affiliateAddress","type": "address"}],"name": "openLootbox","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": false,"inputs": [{"name": "_id","type": "uint256"}],"name": "withdrawChamp","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_parentItemID","type": "uint256"},{"name": "_childItemID","type": "uint256"}],"name": "forgeItems","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "_champId","type": "uint256"}],"name": "getChampStats","outputs": [{"name": "","type": "uint256"},{"name": "","type": "uint256"},{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_champId","type": "uint256"},{"name": "_itemId","type": "uint256"}],"name": "putOn","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "getChampsForSale","outputs": [{"name": "","type": "uint256[]"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_id","type": "uint256"}],"name": "cancelChampSale","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_id","type": "uint256"}],"name": "buyChamp","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": false,"inputs": [{"name": "_name","type": "string"}],"name": "changePlayersName","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_to","type": "address"},{"name": "_champId","type": "uint256"}],"name": "giveChamp","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "triggerPause","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "","type": "uint256"}],"name": "champToName","outputs": [{"name": "","type": "string"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_affiliateAddress","type": "address"}],"name": "createChamp","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": true,"inputs": [{"name": "_position","type": "uint256"}],"name": "getChampReward","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_address","type": "address"}],"name": "withdrawToAddress","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_id","type": "uint256"},{"name": "_price","type": "uint256"}],"name": "setItemForSale","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_champId","type": "uint256"},{"name": "_name","type": "string"}],"name": "changeChampsName","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "","type": "uint256"}],"name": "leaderboard","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "uint256"}],"name": "items","outputs": [{"name": "itemType","type": "uint8"},{"name": "itemRarity","type": "uint8"},{"name": "attackPower","type": "uint256"},{"name": "defencePower","type": "uint256"},{"name": "cooldownReduction","type": "uint256"},{"name": "price","type": "uint256"},{"name": "onChampId","type": "uint256"},{"name": "onChamp","type": "bool"},{"name": "forSale","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_id","type": "uint256"}],"name": "cancelItemSale","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "","type": "uint256"}],"name": "champs","outputs": [{"name": "id","type": "uint256"},{"name": "attackPower","type": "uint256"},{"name": "defencePower","type": "uint256"},{"name": "cooldownTime","type": "uint256"},{"name": "readyTime","type": "uint256"},{"name": "winCount","type": "uint256"},{"name": "lossCount","type": "uint256"},{"name": "position","type": "uint256"},{"name": "price","type": "uint256"},{"name": "withdrawCooldown","type": "uint256"},{"name": "eq_sword","type": "uint256"},{"name": "eq_shield","type": "uint256"},{"name": "eq_helmet","type": "uint256"},{"name": "forSale","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_fee","type": "uint256"}],"name": "setCreateChampFee","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_to","type": "address"},{"name": "_itemID","type": "uint256"}],"name": "giveItem","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_champId","type": "uint256"},{"name": "_type","type": "uint8"}],"name": "takeOffItem","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_fee","type": "uint256"}],"name": "setLootboxFee","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_champId","type": "uint256"},{"name": "_targetId","type": "uint256"}],"name": "attack","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_id","type": "uint256"}],"name": "buyItem","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": false,"inputs": [{"name": "_id","type": "uint256"},{"name": "_price","type": "uint256"}],"name": "setChampForSale","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "_owner","type": "address"}],"name": "getChampsByOwner","outputs": [{"name": "","type": "uint256[]"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "newOwner","type": "address"}],"name": "transferOwnership","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "","type": "uint256"}],"name": "champToOwner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"anonymous": false,"inputs": [{"indexed": false,"name": "from","type": "address"},{"indexed": false,"name": "to","type": "address"},{"indexed": false,"name": "champID","type": "uint256"}],"name": "TransferChamp","type": "event"},{"anonymous": false,"inputs": [{"indexed": false,"name": "winnerChampID","type": "uint256"},{"indexed": false,"name": "defeatedChampID","type": "uint256"},{"indexed": false,"name": "didAttackerWin","type": "bool"}],"name": "Attack","type": "event"},{"anonymous": false,"inputs": [{"indexed": false,"name": "forgedItemID","type": "uint256"}],"name": "Forge","type": "event"},{"anonymous": false,"inputs": [{"indexed": false,"name": "from","type": "address"},{"indexed": false,"name": "to","type": "address"},{"indexed": false,"name": "itemID","type": "uint256"}],"name": "TransferItem","type": "event"},{"anonymous": false,"inputs": [{"indexed": false,"name": "itemID","type": "uint256"},{"indexed": false,"name": "owner","type": "address"}],"name": "NewItem","type": "event"},{"anonymous": false,"inputs": [{"indexed": false,"name": "champID","type": "uint256"},{"indexed": false,"name": "owner","type": "address"}],"name": "NewChamp","type": "event"}];
+  private _abi:any = [{"constant":false,"inputs":[{"name":"_address","type":"address"}],"name":"loadController","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_isTokenChamp","type":"bool"}],"name":"cancelTokenSale","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_to","type":"address"},{"name":"_isTokenChamp","type":"bool"}],"name":"setTokenApproval","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_champId","type":"uint256"},{"name":"_attackPower","type":"uint256"},{"name":"_defencePower","type":"uint256"},{"name":"_cooldownTime","type":"uint256"},{"name":"_readyTime","type":"uint256"},{"name":"_winCount","type":"uint256"},{"name":"_lossCount","type":"uint256"},{"name":"_position","type":"uint256"},{"name":"_price","type":"uint256"},{"name":"_withdrawCooldown","type":"uint256"},{"name":"_eq_sword","type":"uint256"},{"name":"_eq_shield","type":"uint256"},{"name":"_eq_helmet","type":"uint256"},{"name":"_forSale","type":"bool"}],"name":"updateChamp","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"addressInfo","outputs":[{"name":"withdrawal","type":"uint256"},{"name":"champsCount","type":"uint256"},{"name":"itemsCount","type":"uint256"},{"name":"name","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_tokenId","type":"uint256"},{"name":"_isTokenChamp","type":"bool"}],"name":"clearTokenApproval","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"getItemsByOwner","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_price","type":"uint256"},{"name":"_isTokenChamp","type":"bool"}],"name":"setTokenForSale","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"}],"name":"withdrawChamp","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_attackPower","type":"uint256"},{"name":"_defencePower","type":"uint256"},{"name":"_cooldownTime","type":"uint256"},{"name":"_winCount","type":"uint256"},{"name":"_lossCount","type":"uint256"},{"name":"_position","type":"uint256"},{"name":"_price","type":"uint256"},{"name":"_eq_sword","type":"uint256"},{"name":"_eq_shield","type":"uint256"},{"name":"_eq_helmet","type":"uint256"},{"name":"_forSale","type":"bool"},{"name":"_owner","type":"address"}],"name":"newChamp","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_parentItemID","type":"uint256"},{"name":"_childItemID","type":"uint256"}],"name":"forgeItems","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_champId","type":"uint256"}],"name":"getChampStats","outputs":[{"name":"","type":"uint256"},{"name":"","type":"uint256"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_champId","type":"uint256"},{"name":"_itemId","type":"uint256"}],"name":"putOn","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_champId","type":"uint256"},{"name":"_name","type":"string"}],"name":"setChampsName","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bool"},{"name":"","type":"address"},{"name":"","type":"address"}],"name":"tokenOperatorApprovals","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bool"},{"name":"","type":"uint256"}],"name":"tokenApprovals","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"}],"name":"changePlayersName","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_champId","type":"uint256"},{"name":"_isTokenChamp","type":"bool"}],"name":"giveToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_itemType","type":"uint8"},{"name":"_itemRarity","type":"uint8"},{"name":"_attackPower","type":"uint256"},{"name":"_defencePower","type":"uint256"},{"name":"_cooldownReduction","type":"uint256"},{"name":"_price","type":"uint256"},{"name":"_onChampId","type":"uint256"},{"name":"_onChamp","type":"bool"},{"name":"_forSale","type":"bool"}],"name":"updateItem","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"champToName","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_affiliateAddress","type":"address"}],"name":"buyItem","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[{"name":"_isTokenChamp","type":"bool"}],"name":"getTokenCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"pendingWithdrawal","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_id","type":"uint256"},{"name":"_isTokenChamp","type":"bool"}],"name":"transferToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_address","type":"address"},{"name":"_withdrawal","type":"uint256"},{"name":"_updatePendingWithdrawal","type":"bool"},{"name":"_champsCount","type":"uint256"},{"name":"_updateChampsCount","type":"bool"},{"name":"_itemsCount","type":"uint256"},{"name":"_updateItemsCount","type":"bool"},{"name":"_name","type":"string"},{"name":"_updateName","type":"bool"}],"name":"updateAddressInfo","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_value","type":"uint256"},{"name":"_isTokenChamp","type":"bool"}],"name":"setTokensForSaleCount","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_isTokenChamp","type":"bool"}],"name":"getTokensForSale","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_position","type":"uint256"}],"name":"getChampReward","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_itemType","type":"uint8"},{"name":"_itemRarity","type":"uint8"},{"name":"_attackPower","type":"uint256"},{"name":"_defencePower","type":"uint256"},{"name":"_cooldownReduction","type":"uint256"},{"name":"_price","type":"uint256"},{"name":"_onChampId","type":"uint256"},{"name":"_onChamp","type":"bool"},{"name":"_forSale","type":"bool"},{"name":"_owner","type":"address"}],"name":"newItem","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_address","type":"address"}],"name":"withdrawToAddress","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bool"}],"name":"tokensForSaleCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bool"},{"name":"","type":"uint256"}],"name":"tokenToOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_champId","type":"uint256"},{"name":"_name","type":"string"}],"name":"changeChampsName","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_x","type":"uint256"},{"name":"_value","type":"uint256"}],"name":"setLeaderboard","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"leaderboard","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"items","outputs":[{"name":"id","type":"uint256"},{"name":"itemType","type":"uint8"},{"name":"itemRarity","type":"uint8"},{"name":"attackPower","type":"uint256"},{"name":"defencePower","type":"uint256"},{"name":"cooldownReduction","type":"uint256"},{"name":"price","type":"uint256"},{"name":"onChampId","type":"uint256"},{"name":"onChamp","type":"bool"},{"name":"forSale","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"champs","outputs":[{"name":"id","type":"uint256"},{"name":"attackPower","type":"uint256"},{"name":"defencePower","type":"uint256"},{"name":"cooldownTime","type":"uint256"},{"name":"readyTime","type":"uint256"},{"name":"winCount","type":"uint256"},{"name":"lossCount","type":"uint256"},{"name":"position","type":"uint256"},{"name":"price","type":"uint256"},{"name":"withdrawCooldown","type":"uint256"},{"name":"eq_sword","type":"uint256"},{"name":"eq_shield","type":"uint256"},{"name":"eq_helmet","type":"uint256"},{"name":"forSale","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"},{"name":"_msgsender","type":"address"},{"name":"_isTokenChamp","type":"bool"}],"name":"onlyApprovedOrOwnerOfToken","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_address","type":"address"},{"name":"_amount","type":"uint256"}],"name":"addWithdrawal","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"emergencyWithdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_champId","type":"uint256"},{"name":"_type","type":"uint8"}],"name":"takeOffItem","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_affiliateAddress","type":"address"}],"name":"buyChamp","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_approved","type":"bool"},{"name":"_isTokenChamp","type":"bool"}],"name":"setTokenOperatorApprovals","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_tokenId","type":"uint256"},{"name":"_isTokenChamp","type":"bool"}],"name":"getTokenURIs","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_champId","type":"uint256"},{"name":"_targetId","type":"uint256"}],"name":"attack","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_owner","type":"address"},{"name":"_isTokenChamp","type":"bool"}],"name":"setTokenToOwner","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"getChampsByOwner","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_address","type":"address"},{"name":"_trusted","type":"bool"}],"name":"setTrusted","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}];
   public _tokenContract: any;
-  private _tokenContractAddress: string = "0xa44e464b13280340904FfEF0a65b8a0033460430"; 
+  private _tokenContractAddress: string = "0x689fb61845488297dfe7586e5f7956475955d2dc"; 
 
   //block timestamp
   blockTimestampSource = new BehaviorSubject<number>(0);
@@ -368,6 +368,11 @@ export class GameService {
 	  return await this._getter.champToOwner(this._tokenContract, _id);
   }
 
+  //@returns Returs booleans if address is owner or approved of token
+  public async onlyApprovedOrOwnerOfToken(_tokenId:number,_address:string,_isTokenChamp:boolean): Promise<boolean> {
+    return await this._getter.onlyApprovedOrOwnerOfToken(this._tokenContract,_tokenId, _address, _isTokenChamp);
+  }
+
 
   ///@notice Gets champ's name
   ///@param _id Champ's id
@@ -391,9 +396,13 @@ export class GameService {
   ///@returns false or true
   public async isOwnerOfChamp(_champId:number,_address:string): Promise<boolean> {
   	let address = (_address) ? _address : await this.getAccount();
-	  let owner = await this.champToOwner(_champId);
+	  /*
+    let owner = await this.champToOwner(_champId);
 	  let isOwner = (address == owner) ? true : false;
 	  return isOwner;
+    */
+    let isApproved = await this.onlyApprovedOrOwnerOfToken(_champId,address,true);
+    return isApproved;
   }
 
 
@@ -403,9 +412,13 @@ export class GameService {
   ///@returns false or true
   public async isOwnerOfItem(_itemId:number,_address:string): Promise<boolean> {
     let address = (_address) ? _address : await this.getAccount();
+    /*
     let owner = await this.itemToOwner(_itemId);
     let isOwner = (address == owner) ? true : false;
     return isOwner;
+    */
+    let isApproved = await this.onlyApprovedOrOwnerOfToken(_itemId,address,false);
+    return isApproved;
   }
 
 
@@ -523,9 +536,9 @@ export class GameService {
   ///@param _price Has to be in WEI
   public setChampForSale(_champId:number,_price:number) {
     let price = this._web3.toWei(_price, 'ether');
-    this._tokenContract.setChampForSale.estimateGas(_champId, price, {from: this._account}, (err, gas) => {
+    this._tokenContract.setTokenForSale.estimateGas(_champId, price, true, {from: this._account}, (err, gas) => {
       if(err == null){
-      	this._tokenContract.setChampForSale(_champId, price, {
+      	this._tokenContract.setTokenForSale(_champId, price, true, {
             gas: gas
          	}, (err, result) => {
             this.web3message.called = true;
@@ -542,9 +555,9 @@ export class GameService {
 
   ///@notice Gift champ
   public giveChamp(_toAddress:string,_champId:number){
-    this._tokenContract.giveChamp.estimateGas(_toAddress, _champId, {from: this._account}, (err, gas) => {
+    this._tokenContract.giveToken.estimateGas(_toAddress, _champId, true, {from: this._account}, (err, gas) => {
       if(err == null){
-         this._tokenContract.giveChamp(_toAddress, _champId, {
+         this._tokenContract.giveToken(_toAddress, _champId, true, {
             gas: gas
           }, (err, result) => {
             this.web3message.called = true;
@@ -580,10 +593,11 @@ export class GameService {
 
   ///@notice Buy champ
   ///@param _price Has to be in WEI
-  public buyChamp(_champId:number,_price:number){
-    this._tokenContract.buyChamp.estimateGas(_champId, {from: this._account, value: _price}, (err, gas) => {
+  public buyChamp(_champId:number,_price:number,_affiliateAddress:string){
+    _affiliateAddress = (_affiliateAddress) ? _affiliateAddress : '0x0000000000000000000000000000000000000000';
+    this._tokenContract.buyChamp.estimateGas(_champId, _affiliateAddress, {from: this._account, value: _price}, (err, gas) => {
       if(err == null){
-      	this._tokenContract.buyChamp(_champId, {
+      	this._tokenContract.buyChamp(_champId, _affiliateAddress, {
             gas: gas,
             value: _price
          	}, (err, result) => {
@@ -623,9 +637,9 @@ export class GameService {
   ///@dev Price converts in this functon from ether from wei
   public setItemForSale(_itemId:number,_price:number){
     let price = this._web3.toWei(_price, 'ether');
-    this._tokenContract.setItemForSale.estimateGas(_itemId, price, {from: this._account}, (err, gas) => {
+    this._tokenContract.setTokenForSale.estimateGas(_itemId, price, false, {from: this._account}, (err, gas) => {
       if(err == null){
-        this._tokenContract.setItemForSale(_itemId, price, {
+        this._tokenContract.setTokenForSale(_itemId, price, false, {
             gas: gas
           }, (err, result) => {
                 this.web3message.called = true;
@@ -642,9 +656,9 @@ export class GameService {
 
   ///@notice Send item as gift
   public giveItem(_toAddress:string,_itemId:number){
-    this._tokenContract.giveItem.estimateGas(_toAddress, _itemId, {from: this._account}, (err, gas) => {
+    this._tokenContract.giveToken.estimateGas(_toAddress, _itemId, false, {from: this._account}, (err, gas) => {
       if(err == null){
-        this._tokenContract.giveItem(_toAddress, _itemId, {
+        this._tokenContract.giveToken(_toAddress, _itemId, false, {
             gas: gas
           }, (err, result) => {
             this.web3message.called = true;
@@ -661,10 +675,11 @@ export class GameService {
 
   ///@notice Buys item from market
   ///@param _price Has to be in WEI
-  public buyItem(_itemId:number,_price:number){
-    this._tokenContract.buyItem.estimateGas(_itemId, {from: this._account, value: _price}, (err, gas) => {
+  public buyItem(_itemId:number,_price:number,_affiliateAddress:string){
+    _affiliateAddress = (_affiliateAddress) ? _affiliateAddress : '0x0000000000000000000000000000000000000000';
+    this._tokenContract.buyItem.estimateGas(_itemId, _affiliateAddress, {from: this._account, value: _price}, (err, gas) => {
       if(err == null){
-        this._tokenContract.buyItem(_itemId, {
+        this._tokenContract.buyItem(_itemId, _affiliateAddress, {
             gas: gas,
             value: _price
           }, (err, result) => {
@@ -682,9 +697,9 @@ export class GameService {
 
   ///@notice Cancels champ's sale
   public cancelChampSale(_champId:number){
-    this._tokenContract.cancelChampSale.estimateGas(_champId, {from: this._account}, (err, gas) => {
+    this._tokenContract.cancelTokenSale.estimateGas(_champId, true, {from: this._account}, (err, gas) => {
       if(err == null){
-        this._tokenContract.cancelChampSale(_champId, {
+        this._tokenContract.cancelTokenSale(_champId, true, {
           gas: gas
           }, (err, result) => {
             this.web3message.called = true;
@@ -701,9 +716,9 @@ export class GameService {
 
   ///@notice Cancels item's sale
   public cancelItemSale(_itemId:number){
-    this._tokenContract.cancelItemSale.estimateGas(_itemId, {from: this._account}, (err, gas) => {
+    this._tokenContract.cancelTokenSale.estimateGas(_itemId, false, {from: this._account}, (err, gas) => {
       if(err == null){
-        this._tokenContract.cancelItemSale(_itemId, {
+        this._tokenContract.cancelTokenSale(_itemId, false, {
             gas: gas
           }, (err, result) => {
             this.web3message.called = true;
@@ -982,7 +997,7 @@ export class GameService {
     });
   }
 
-
+  /*
   ///@notice Creates new champ
   ///@param _affiliateAddress Defined by cookies
   ///@dev If 'create new champ price' is changed needs to be changed also here
@@ -1004,8 +1019,9 @@ export class GameService {
       }
      });    
   }
+  */
 
-
+  /*
   ///@notice Creates new item
   ///@param _affiliateAddress Defined by cookies
   ///@dev If 'create new item price' is changed needs to be changed also here
@@ -1028,6 +1044,7 @@ export class GameService {
       }
      });    
   }
+  */
 
 
   ///@notice Change champ's name

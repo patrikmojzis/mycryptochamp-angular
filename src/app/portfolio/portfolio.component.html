@@ -34,9 +34,6 @@
                   <div class="col-sm-4 col-md-6 col-12 text-left">
                      <h2 class="section-header color-primary">CHAMPS</h2>
                   </div>
-                  <div class="col-sm-8 col-md-6 col-12 text-right hidden-xs-down">  
-                     <button type="button" class="col-12 col-sm-8 offset-sm-4 c-btn c-btn-lg c-btn-primary m-1" (click)="createNewChamp()">Create a Champ</button>
-                  </div>
                </div>
             </div>
          </div>
@@ -98,11 +95,11 @@
                <div class="row">
                   <div class="offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 text-secondary text-center">
                      <h3 class="h3-responsive">Get your first champ</h3>
-                     <p class="lead mt-2"><a routerLink="/market/champs" class="link-secondary">Visit a market</a> or just create a new one for Ξ 0.005.</p>
+                     <p class="lead mt-2"><a routerLink="/market/champs" class="link-secondary">Visit a market</a> and see a lot of cool champs.</p>
                   </div>
                </div>
                <div class="row align-cai-center">
-                     <div class="cai-card fadeIn" *ngFor="let champ of champsForSale.slice(0,1) | orderBy:'price':false">
+                     <div class="cai-card fadeIn" *ngFor="let champ of champsForSale.slice(0,2) | orderBy:'price':false">
                         <div class="row ">
                            <div class="col-12">
                               <span class="color-dark">{{ champ.name }}</span>
@@ -132,30 +129,7 @@
                            </div>
                         </div>
                      </div>
-
-
-                     <div class="cai-card fadeIn text-center">
-                        <div class="row ">
-                           <div class="col-12">
-                              <span class="color-dark">Create a Champ</span>
-                              <p class="text-muted">
-                                 Ξ 0.005
-                              </p>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <a class="col-12 offset-0 offset-sm-0 col-sm-12 cai-box animated background-color-1" routerLink="/portfolio" (click)="createNewChamp()">
-                              <div class="row p-5">
-                                 <img src="../../assets/img/champs/create-new-champ.png" class="img-responsive">
-                              </div>
-                           </a>
-                        </div>
-                     </div>
-
                </div>
-            </div>
-            <div class="col-12 text-center hidden-sm-up header-border py-4 mt-4">
-               <button type="button" class="col-12 col-sm-8 offset-sm-4 c-btn c-btn-lg c-btn-primary m-1" (click)="createNewChamp()">Create a Champ</button>
             </div>
          </div>
       </div>
@@ -165,9 +139,6 @@
                <div class="row align-items-center">
                   <div class="col-sm-4 col-md-6 col-12 text-left">
                      <h2 class="section-header color-primary">INVENTORY</h2>
-                  </div>
-                  <div class="col-sm-8 col-md-6 col-12 text-right hidden-xs-down">
-                     <button type="button" class="col-12 col-sm-8 offset-sm-4 c-btn c-btn-lg c-btn-primary m-1" (click)="openLootbox()">Open a Loot Box</button>
                   </div>
                </div>
             </div>
@@ -228,7 +199,7 @@
                <div class="row text-secondary">
                   <div class="offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 text-secondary text-center">
                      <h3 class="h3-responsive">Items increase champs’ abilities</h3>
-                     <p class="lead mt-2"><a routerLink="/market/swords" class="link-secondary">Visit a market</a> or try your luck and open a loot box for Ξ 0.005.</p>
+                     <p class="lead mt-2"><a routerLink="/market/swords" class="link-secondary">Visit a market</a> to see all items for sale.</p>
                   </div>
                </div>
                <div class="row align-cai-center">
@@ -261,28 +232,34 @@
                      </div>
                   </div>
 
-                  <div class="cai-card fadeIn text-center">
-                     <div class="row ">
+                  <div class="cai-card fadeIn" *ngFor="let item of shieldsForSale.slice(0,1) | orderBy:'price':false">
+                     <div class="row">
                         <div class="col-12">
-                           <span class="color-dark">Loot Box</span>
-                           <p class="text-muted">
-                              Ξ 0.005
+                           <span class="text-capitalize color-dark">{{item.rank}}</span> <span class="text-capitalize">{{item.type}}</span>
+                           <p *ngIf="item.forSale">
+                              <fa name="tag" class="text-success"></fa>
+                              <span class="text-secondary">Ξ {{item.price| number:'1.1-4'}}</span>
                            </p>
                         </div>
                      </div>
                      <div class="row">
-                        <a class="col-12 offset-0 offset-sm-0 col-sm-12 cai-box animated background-color-1" routerLink="/portfolio" (click)="openLootbox()">
-                           <div class="row p-5">
-                              <img src="../../assets/img/lootbox-sm.png" class="img-responsive">
-                              </div>
+                        <a routerLink="/item/{{item.id}}">
+                           <div class="cai-box animated {{this.game.getBackgroundColor(item.id)}}">
+                              <img src="../../assets/img/items-sm/{{this.game.getItemImg(item.id, item.type, item.rank)}}" class="img-fluid p-5">
+                           </div>
                         </a>
                      </div>
+                     <div class="row mt-3 cai-stats">
+                        <div class="col-12 color-dark">
+                           <div class="row text-center">
+                              <div class="col-4 px-1"><img src="../../assets/img/icons/sword-small.png" alt="Attack power" title="Attack power" height="17" width="17" class="mb-1"><br><span>{{ item.attackPower }}</span></div>
+                              <div class="col-4 px-1"><img src="../../assets/img/icons/shield-small.png" alt="Defence power" title="Defence power" height="17" width="17" class="mb-1"><br><span>{{ item.defencePower }}</span></div>
+                              <div class="col-4 px-1"><img src="../../assets/img/icons/plus-small.png" alt="Cooldown Reduction" title="Cooldown Reduction" height="17" width="17" class="mb-1"><br><span>{{ item.cooldownReduction / 60 | number:'1.0-0' }}m</span></div>
+                           </div>
+                        </div>
+                     </div>
                   </div>
-
                </div>
-            </div>
-            <div class="col-12 text-center hidden-sm-up header-border py-4 mt-4">
-               <button type="button" class="col-12 col-sm-8 offset-sm-4 c-btn c-btn-lg c-btn-primary m-1" (click)="openLootbox()">Open a Loot box</button>
             </div>
          </div>
       </div>

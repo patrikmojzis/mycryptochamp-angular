@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-champ',
@@ -36,9 +37,11 @@ export class ChampComponent implements OnInit, OnDestroy {
   loading:boolean = true;
   loadingCompleted:any = {'isOwnerOfChamp': false, 'eq_sword': false, 'eq_shield': false, 'eq_helmet': false, 'champ': false};
 
+  affiliateAddress:string;
+
   private _onDestroy = new Subject();
 
-  constructor(public game: GameService, private route: ActivatedRoute, private modalService: NgbModal) { 
+  constructor(public game: GameService, private route: ActivatedRoute, private modalService: NgbModal, private cookieService: CookieService) { 
     this.route.params.takeUntil(this._onDestroy).subscribe(res => { 
   		this.id = res.id;
   	});
@@ -57,6 +60,9 @@ export class ChampComponent implements OnInit, OnDestroy {
     });
 
     this.game.getAccount().then(res => this.myAddress = res);
+
+    //get affiliate address
+    this.affiliateAddress = (this.cookieService.get('affiliateAddress') != '') ? this.cookieService.get('affiliateAddress') : null; 
   }
 
   ///@notice Gets champ's info
@@ -116,7 +122,7 @@ export class ChampComponent implements OnInit, OnDestroy {
   ///@notice Calls Web3 in Game service
   ///@param _price In Ether. Has to be converted to wei
   buyChamp(_champId:number,_price:number){
-  	this.game.buyChamp(_champId,_price * 1000000000000000000);
+  	this.game.buyChamp(_champId,_price * 1000000000000000000,this.affiliateAddress);
   }
 
   ///@notice Function for open Boostrap modal

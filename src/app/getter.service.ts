@@ -82,13 +82,25 @@ export class GetterService {
   ///@returns Owner's address
   public async champToOwner(_tokenContract:any, _id:number): Promise<string> {
 	  return new Promise((resolve, reject) => {
-	    _tokenContract.champToOwner.call(_id, function (err, result) {
+	    _tokenContract.tokenToOwner.call(true, _id, function (err, result) {
 	      if(err != null) {
 	        reject(err);
 	      }
 	      resolve(result);
 	    });
 	  }) as Promise<string>;
+  }
+
+  //@returns Returs booleans if address is owner or approved of token
+  public async onlyApprovedOrOwnerOfToken(_tokenContract:any,_tokenId:number,_address:string,_isTokenChamp:boolean): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      _tokenContract.onlyApprovedOrOwnerOfToken.call(_tokenId,_address,_isTokenChamp, function (err, result) {
+        if(err != null) {
+          reject(err);
+        }
+        resolve(result);
+      });
+    }) as Promise<boolean>;
   }
 
 
@@ -207,7 +219,7 @@ export class GetterService {
   ///@returns Owner's address
   public async itemToOwner(_tokenContract:any,_id:number): Promise<string> {
     return new Promise((resolve, reject) => {
-      _tokenContract.itemToOwner.call(_id, function (err, result) {
+      _tokenContract.tokenToOwner.call(false, _id, function (err, result) {
         if(err != null) {
           reject(err);
         }
@@ -232,40 +244,40 @@ export class GetterService {
 	        let type = "empty";
 	        let rank = "common";
 
-	        if(result[0] == 1){
+	        if(result[1] == 1){
 	          type = "sword";
 	        }
 
-	        if(result[0] == 2){
+	        if(result[1] == 2){
 	          type = "shield";
 	        }
 
-	        if(result[0] == 3){
+	        if(result[1] == 3){
 	          type = "helmet";
 	        }
 
 
-	        if(result[1] == 1){
+	        if(result[2] == 1){
 	          rank = "common";
 	        }
 
-	        if(result[1] == 2){
+	        if(result[2] == 2){
 	          rank = "uncommon";
 	        }
 
-	        if(result[1] == 3){
+	        if(result[2] == 3){
 	          rank = "rare";
 	        }
 
-	        if(result[1] == 4){
+	        if(result[2] == 4){
 	          rank = "epic";
 	        }
 
-	        if(result[1] == 5){
+	        if(result[2] == 5){
 	          rank = "legendary";
 	        }
 
-	        if(result[1] == 6){
+	        if(result[2] == 6){
 	          rank = "forged";
 	        }
 
@@ -273,13 +285,13 @@ export class GetterService {
 	       'id': +_id,
 		     'type': type, 
 	       'rank': rank, 
-		     'attackPower': +result[2], 
-		     'defencePower': +result[3], 
-		     'cooldownReduction': +result[4], 
-		     'price': +result[5] / 1000000000000000000, 
-		     'onChampID': +result[6],
-	       'onChamp': result[7], 
-		     'forSale': result[8],
+		     'attackPower': +result[3], 
+		     'defencePower': +result[4], 
+		     'cooldownReduction': +result[5], 
+		     'price': +result[6] / 1000000000000000000, 
+		     'onChampID': +result[7],
+	       'onChamp': result[8], 
+		     'forSale': result[9],
 	       'owner': owner,
 	       'ownerName': ownerName
 		    });
@@ -293,7 +305,7 @@ export class GetterService {
   ///@param _position Champ's positon
   public async getChampAtPosition(_tokenContract:any,_position:number): Promise<number> {
 	  return new Promise((resolve, reject) => {
-	    _tokenContract.leaderboard.call(_position - 1, function (err, result) {
+	    _tokenContract.leaderboard.call(_position, function (err, result) {
 	      if(err != null) {
 	        reject(err);
 	      }
@@ -340,7 +352,7 @@ export class GetterService {
   ///@dev Use in leadeboard
   public async getTotalChampsCount(_tokenContract:any): Promise<number> {
     return new Promise((resolve, reject) => {
-      _tokenContract.getChampsCount.call(function (err, result) {
+      _tokenContract.getTokenCount.call(true, function (err, result) {
         if(err != null) {
           reject(err);
         }
@@ -353,7 +365,7 @@ export class GetterService {
   ///@dev Gets IDs of champs for sale
   public async getChampsForSale(_tokenContract:any): Promise<any> {
     return new Promise((resolve, reject) => {
-      _tokenContract.getChampsForSale.call(function (err, result) {
+      _tokenContract.getTokensForSale.call(true, function (err, result) {
         if(err != null) {
           reject(err);
         }
@@ -366,7 +378,7 @@ export class GetterService {
   ///@dev Gets IDs of items for sale
   public async getItemsForSale(_tokenContract:any): Promise<any> {
     return new Promise((resolve, reject) => {
-      _tokenContract.getItemsForSale.call(function (err, result) {
+      _tokenContract.getTokensForSale.call(false, function (err, result) {
         if(err != null) {
           reject(err);
         }

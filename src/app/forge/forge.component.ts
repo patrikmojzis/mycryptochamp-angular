@@ -28,11 +28,15 @@ export class ForgeComponent implements OnInit, OnDestroy {
 
   changeParentOnNextClick:boolean = true;
 
+  helmetsForSale:any;
+
   private _onDestroy = new Subject();
 
   constructor(public game: GameService, private cookieService: CookieService) { 
   	this.game.myItemsCount.takeUntil(this._onDestroy).subscribe(res => this.myItemsCount = res);
   	this.game.myItems.takeUntil(this._onDestroy).subscribe(res => this.myItems = res);
+
+    this.game.helmetsForSale.takeUntil(this._onDestroy).subscribe(res => this.helmetsForSale = res);
 
   	if(this.myItems.length != 0){
       this.loading = false;
@@ -65,6 +69,7 @@ export class ForgeComponent implements OnInit, OnDestroy {
 
     //my items
     this.game.reloadMyItems();
+    this.game.reloadItemsForSale();
   }
 
 
@@ -106,10 +111,12 @@ export class ForgeComponent implements OnInit, OnDestroy {
       }
     }
 
+    /*
     ///@notice Calls Web3 in Game service
     openLootbox() {
       this.game.openLootbox(this.affiliateAddress);
     }
+    */
 
     ngOnDestroy() {
       this._onDestroy.next();

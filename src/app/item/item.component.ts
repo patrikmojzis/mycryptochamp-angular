@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrderPipe } from 'ngx-order-pipe';
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-item',
@@ -28,9 +29,11 @@ export class ItemComponent implements OnInit, OnDestroy {
   //loading
   loading:boolean = true;
 
+  affiliateAddress:string;
+
   private _onDestroy = new Subject();
 
-  constructor(public game: GameService, private route: ActivatedRoute, private modalService: NgbModal, private orderPipe: OrderPipe) {
+  constructor(public game: GameService, private route: ActivatedRoute, private modalService: NgbModal, private orderPipe: OrderPipe, private cookieService: CookieService) {
     ///subscription
     this.route.params.takeUntil(this._onDestroy).subscribe(res => { 
   		this.id = +res.id;
@@ -49,6 +52,9 @@ export class ItemComponent implements OnInit, OnDestroy {
     });
 
     this.game.getAccount().then(res => this.myAddress = res);
+
+    //get affiliate address
+    this.affiliateAddress = (this.cookieService.get('affiliateAddress') != '') ? this.cookieService.get('affiliateAddress') : null; 
   }
 
   ///@notice Gets item info
@@ -78,7 +84,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   ///@notice Calls Web3 in Game service
   ///@param _price In Ether. Has to be converted to wei
   buyItem(_itemId:number,_price:number){
-  	this.game.buyItem(_itemId,_price * 1000000000000000000);
+  	this.game.buyItem(_itemId,_price * 1000000000000000000,this.affiliateAddress);
   }
 
   ///@notice Calls Web3 in Game service

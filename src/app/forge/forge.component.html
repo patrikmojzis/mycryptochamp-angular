@@ -130,21 +130,31 @@
                </div>
                <div class="row align-cai-center">
 
-                  <div class="cai-card fadeIn text-center">
-                     <div class="row ">
+                  <div class="cai-card fadeIn" *ngFor="let item of helmetsForSale.slice(0,1) | orderBy:'price':false">
+                     <div class="row">
                         <div class="col-12">
-                           <span class="color-dark">Loot Box</span>
-                           <p class="text-muted">
-                              Ξ 0.005
+                           <span class="text-capitalize color-dark">{{item.rank}}</span> <span class="text-capitalize">{{item.type}}</span>
+                           <p *ngIf="item.forSale">
+                              <fa name="tag" class="text-success"></fa>
+                              <span class="text-secondary">Ξ {{item.price| number:'1.1-4'}}</span>
                            </p>
                         </div>
                      </div>
                      <div class="row">
-                        <a class="col-12 offset-0 offset-sm-0 col-sm-12 cai-box animated background-color-1" routerLink="/forge" (click)="openLootbox()">
-                           <div class="row p-5">
-                              <img src="../../assets/img/lootbox-sm.png" class="img-responsive">
-                              </div>
+                        <a routerLink="/item/{{item.id}}">
+                           <div class="cai-box animated {{this.game.getBackgroundColor(item.id)}}">
+                              <img src="../../assets/img/items-sm/{{this.game.getItemImg(item.id, item.type, item.rank)}}" class="img-fluid p-5">
+                           </div>
                         </a>
+                     </div>
+                     <div class="row mt-3 cai-stats">
+                        <div class="col-12 color-dark">
+                           <div class="row text-center">
+                              <div class="col-4 px-1"><img src="../../assets/img/icons/sword-small.png" alt="Attack power" title="Attack power" height="17" width="17" class="mb-1"><br><span>{{ item.attackPower }}</span></div>
+                              <div class="col-4 px-1"><img src="../../assets/img/icons/shield-small.png" alt="Defence power" title="Defence power" height="17" width="17" class="mb-1"><br><span>{{ item.defencePower }}</span></div>
+                              <div class="col-4 px-1"><img src="../../assets/img/icons/plus-small.png" alt="Cooldown Reduction" title="Cooldown Reduction" height="17" width="17" class="mb-1"><br><span>{{ item.cooldownReduction / 60 | number:'1.0-0' }}m</span></div>
+                           </div>
+                        </div>
                      </div>
                   </div>
 
