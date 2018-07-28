@@ -99,7 +99,7 @@ export class ApiComponent implements OnDestroy {
         'name': champ.name,
         'ownersAddress': champ.owner,
         'ownersName': champ.ownerName,
-        'img': "https://mycryptochamp.io/assets/img/champs-md/" + img,
+        'image': "https://mycryptochamp.io/assets/img/champs-md/" + img,
         'bgColor': bgColor,
 
         'attackPower': champ.attackPower, 
@@ -138,7 +138,7 @@ export class ApiComponent implements OnDestroy {
            'rarity': item.rank, 
            'ownersAddress': item.owner,
            'ownersName': item.ownerName,
-           'img': "https://mycryptochamp.io/assets/img/items-md/" + img,
+           'image': "https://mycryptochamp.io/assets/img/items-md/" + img,
            'bgColor': bgColor,
 
            'attackPower': item.attackPower, 
