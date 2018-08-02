@@ -518,7 +518,7 @@ export class GameService {
     this._tokenContract.withdrawChamp.estimateGas(_champId, {from: this._account}, (err, gas) => {
       if(err == null){
       	this._tokenContract.withdrawChamp(_champId, {
-            gas: gas
+            gas: gas + 3000
          	}, (err, result) => {
                 this.web3message.called = true;
                 this.web3message.calledFrom = 'withdrawChamp';
@@ -539,7 +539,7 @@ export class GameService {
     this._tokenContract.setTokenForSale.estimateGas(_champId, price, true, {from: this._account}, (err, gas) => {
       if(err == null){
       	this._tokenContract.setTokenForSale(_champId, price, true, {
-            gas: gas
+            gas: gas + 3000
          	}, (err, result) => {
             this.web3message.called = true;
             this.web3message.calledFrom = 'setChampForSale';
@@ -558,7 +558,7 @@ export class GameService {
     this._tokenContract.giveToken.estimateGas(_toAddress, _champId, true, {from: this._account}, (err, gas) => {
       if(err == null){
          this._tokenContract.giveToken(_toAddress, _champId, true, {
-            gas: gas
+            gas: gas + 3000
           }, (err, result) => {
             this.web3message.called = true;
             this.web3message.calledFrom = 'giveChamp';
@@ -598,7 +598,7 @@ export class GameService {
     this._tokenContract.buyChamp.estimateGas(_champId, _affiliateAddress, {from: this._account, value: _price}, (err, gas) => {
       if(err == null){
       	this._tokenContract.buyChamp(_champId, _affiliateAddress, {
-            gas: gas,
+            gas: gas + 3000,
             value: _price
          	}, (err, result) => {
                 this.web3message.called = true;
@@ -618,7 +618,7 @@ export class GameService {
     this._tokenContract.putOn.estimateGas(_champId, _itemId, {from: this._account}, (err, gas) => {
       if(err == null){
         this._tokenContract.putOn(_champId, _itemId, {
-            gas: gas
+            gas: gas + 3000
           }, (err, result) => {
                 this.web3message.called = true;
                 this.web3message.calledFrom = 'putOnItem';
@@ -640,7 +640,7 @@ export class GameService {
     this._tokenContract.setTokenForSale.estimateGas(_itemId, price, false, {from: this._account}, (err, gas) => {
       if(err == null){
         this._tokenContract.setTokenForSale(_itemId, price, false, {
-            gas: gas
+            gas: gas + 3000
           }, (err, result) => {
                 this.web3message.called = true;
                 this.web3message.calledFrom = 'setItemForSale';
@@ -659,7 +659,7 @@ export class GameService {
     this._tokenContract.giveToken.estimateGas(_toAddress, _itemId, false, {from: this._account}, (err, gas) => {
       if(err == null){
         this._tokenContract.giveToken(_toAddress, _itemId, false, {
-            gas: gas
+            gas: gas + 3000
           }, (err, result) => {
             this.web3message.called = true;
             this.web3message.calledFrom = 'giveItem';
@@ -680,7 +680,7 @@ export class GameService {
     this._tokenContract.buyItem.estimateGas(_itemId, _affiliateAddress, {from: this._account, value: _price}, (err, gas) => {
       if(err == null){
         this._tokenContract.buyItem(_itemId, _affiliateAddress, {
-            gas: gas,
+            gas: gas + 3000,
             value: _price
           }, (err, result) => {
                 this.web3message.called = true;
@@ -700,7 +700,7 @@ export class GameService {
     this._tokenContract.cancelTokenSale.estimateGas(_champId, true, {from: this._account}, (err, gas) => {
       if(err == null){
         this._tokenContract.cancelTokenSale(_champId, true, {
-          gas: gas
+          gas: gas + 3000
           }, (err, result) => {
             this.web3message.called = true;
             this.web3message.calledFrom = 'cancelChampSale';
@@ -719,7 +719,7 @@ export class GameService {
     this._tokenContract.cancelTokenSale.estimateGas(_itemId, false, {from: this._account}, (err, gas) => {
       if(err == null){
         this._tokenContract.cancelTokenSale(_itemId, false, {
-            gas: gas
+            gas: gas + 3000
           }, (err, result) => {
             this.web3message.called = true;
             this.web3message.calledFrom = 'cancelItemSale';
@@ -984,7 +984,7 @@ export class GameService {
     this._tokenContract.withdrawToAddress.estimateGas(address, {from: this._account}, (err, gas) => {
       if(err == null){
         this._tokenContract.withdrawToAddress(address, {
-            gas: gas
+            gas: gas + 3000
           }, (err, result) => {
             this.web3message.called = true;
             this.web3message.calledFrom = 'withdrawalFunds';
@@ -1052,7 +1052,7 @@ export class GameService {
     this._tokenContract.changeChampsName.estimateGas(_champId, _name, {from: this._account}, (err, gas) => {
       if(err == null){
         this._tokenContract.changeChampsName(_champId, _name, {
-            gas: gas
+            gas: gas + 3000
           }, (err, result) => {
             this.web3message.called = true;
             this.web3message.calledFrom = 'changeChampsName';
@@ -1071,7 +1071,7 @@ export class GameService {
     this._tokenContract.changePlayersName.estimateGas(_name, {from: this._account}, (err, gas) => {
       if(err == null){
         this._tokenContract.changePlayersName(_name, {
-            gas: gas
+            gas: gas + 3000
           }, (err, result) => {
                 this.web3message.called = true;
                 this.web3message.calledFrom = 'changePlayersName';
@@ -1090,7 +1090,7 @@ export class GameService {
     this._tokenContract.forgeItems.estimateGas(_parentItemID, _childItemID, {from: this._account}, (err, gas) => {
       if(err == null){
         this._tokenContract.forgeItems(_parentItemID, _childItemID, {
-            gas: gas
+            gas: gas + 3000
           }, (err, result) => {
                 this.web3message.called = true;
                 this.web3message.calledFrom = 'forgeItems';
@@ -1109,7 +1109,7 @@ export class GameService {
     this._tokenContract.takeOffItem.estimateGas(_champId, _itemType, {from: this._account}, (err, gas) => {
       if(err == null){
         this._tokenContract.takeOffItem(_champId, _itemType, {
-            gas: gas
+            gas: gas + 3000
           }, (err, result) => {
             this.web3message.called = true;
             this.web3message.calledFrom = 'takeOffItem';
