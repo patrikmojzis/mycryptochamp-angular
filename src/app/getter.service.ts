@@ -12,17 +12,23 @@ export class GetterService {
         if(err != null) {
           reject(err);
         }
+
         if(result[3].trim() == ""){
           if(_account != null){
-            result[3] = _account.substring(0, 13);
+            result[3] = _account.substring(2, 8).toUpperCase();
           }
         }else{
           result[3] = result[3].substring(0, 13);
         }
 
         //heaven :))
-        if(result[3] == "0x00000000000"){
+        if(result[3] == "000000"){
           result[3] = "Heaven";
+        }
+
+        //heaven :))
+        if(result[3] == "689FB6"){
+          result[3] = "MyCryptoChamp";
         }
 
         resolve(result[3]);
