@@ -30,7 +30,8 @@
                   W {{champ.winCount}} <strong>·</strong> 
                   L {{champ.lossCount}} <strong>·</strong> 
                   <a routerLink="{{ (myAddress == champ.owner) ? '/portfolio' : '/profile/' + champ.owner }}" class="text-secondary">
-                     <fa name="user"></fa>
+                     <fa name="bookmark" class="text-success" *ngIf="champ.owner == '0x689fb61845488297dfe7586e5f7956475955d2dc'"></fa>
+                     <fa name="user" *ngIf="champ.owner != '0x689fb61845488297dfe7586e5f7956475955d2dc'"></fa>
                      {{(champ.ownerName ? champ.ownerName : champ.owner)}}
                   </a>
                </p>

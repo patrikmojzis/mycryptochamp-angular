@@ -30,7 +30,8 @@
                <p class="text-secondary mt-3 lead ml-1">
                   ID {{item.id}} <strong>·</strong> 
                   <a routerLink="{{ (myAddress == item.owner) ? '/portfolio' : '/profile/' + item.owner }}" class="text-secondary">
-                     <fa name="user"></fa>
+                     <fa name="bookmark" class="text-success" *ngIf="item.owner == '0x689fb61845488297dfe7586e5f7956475955d2dc'"></fa>
+                     <fa name="user" *ngIf="item.owner != '0x689fb61845488297dfe7586e5f7956475955d2dc'"></fa>
                      {{(item.ownerName ? item.ownerName : item.owner)}}
                   </a>
                </p>
